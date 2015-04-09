@@ -6,10 +6,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .views import index
 
+
 class BaseTests(TestCase):
+
     def setUp(self):
         self.c = Client()
-        
+
     def teste_raiz_ve_index(self):
         pagina = resolve('/')
         self.assertEqual(pagina.func, index)
@@ -28,6 +30,7 @@ class BaseTests(TestCase):
 
 
 class LoginTests(TestCase):
+
     def setUp(self):
         self.c = Client()
 
@@ -41,15 +44,18 @@ class LoginTests(TestCase):
 
 
 class LogoutTests(TestCase):
+
     def setUp(self):
         self.c = Client()
 
     def teste_logout_redireciona(self):
-        response = self.c.get(reverse('django.contrib.auth.views.logout_then_login'))
+        response = self.c.get(
+            reverse('django.contrib.auth.views.logout_then_login'))
         self.assertEqual(response.status_code, 302)
 
 
 class CadastroTests(TestCase):
+
     def setUp(self):
         self.c = Client()
 
@@ -58,7 +64,8 @@ class CadastroTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def teste_cadastro_usuario_autenticado_redireciona(self):
-        user = User.objects.create_user('dummy', 'dummy@henrique.email', 'dummy')
+        user = User.objects.create_user(
+            'dummy', 'dummy@henrique.email', 'dummy')
         self.c.login(username='dummy', password='dummy')
         response = self.c.get(reverse("signup"))
         self.assertEqual(response.status_code, 302)
@@ -69,9 +76,12 @@ class CadastroTests(TestCase):
 
     def teste_cadastro_formulario(self):
         response = self.c.get(reverse("signup"))
-        self.assertEqual( type(response.context['form']), type(UserCreationForm() ))
-        
+        self.assertEqual(
+            type(response.context['form']), type(UserCreationForm()))
+
+
 class PerfilTests(TestCase):
+
     def setUp(self):
         self.c = Client()
 
@@ -80,7 +90,8 @@ class PerfilTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def teste_usuario_autenticado_retorna_200(self):
-        user = User.objects.create_user('dummy', 'dummy@henrique.email', 'dummy')
+        user = User.objects.create_user(
+            'dummy', 'dummy@henrique.email', 'dummy')
         self.c.login(username='dummy', password='dummy')
         response = self.c.get(reverse("profile"))
         self.assertEqual(response.status_code, 200)
