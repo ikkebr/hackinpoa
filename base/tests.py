@@ -80,8 +80,10 @@ class CadastroTests(TestCase):
             type(response.context['form']), type(UserCreationForm()))
 
     def teste_cadastro_formulario_ok(self):
-        response = self.c.post(reverse("signup"), {'username':'xkcd', 'password1': 'xkcd', 'password2': 'xkcd'})
+        response = self.c.post(
+            reverse("signup"), {'username': 'xkcd', 'password1': 'xkcd', 'password2': 'xkcd'})
         self.assertEqual(response.status_code, 302)
+
 
 class PerfilTests(TestCase):
 

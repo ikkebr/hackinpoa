@@ -7,7 +7,7 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 """
 
-#pragma: no cover
+# pragma: no cover
 import os
 
 from django.core.wsgi import get_wsgi_application
