@@ -57,7 +57,7 @@ class LogoutTests(TestCase):
 class CadastroTests(TestCase):
 
     def setUp(self):
-        self.c = Client()
+        self.c = Client(enforce_csrf_checks=False)
 
     def teste_cadastro_anonimo_retorna_200(self):
         response = self.c.get(reverse("signup"))
@@ -79,6 +79,9 @@ class CadastroTests(TestCase):
         self.assertEqual(
             type(response.context['form']), type(UserCreationForm()))
 
+    def teste_cadastro_formulario_ok(self):
+        response = self.c.post(reverse("signup"), {'username':'xkcd', 'password1': 'xkcd', 'password2': 'xkcd'})
+        self.assertEqual(response.status_code, 302)
 
 class PerfilTests(TestCase):
 
