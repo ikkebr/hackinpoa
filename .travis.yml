@@ -1,0 +1,22 @@
+language: python
+
+python:
+   - "2.7"
+   - "pypy"
+
+install:
+   - pip install -r requirements.txt
+   - pip install coverage
+
+
+script:
+   - pep8 --ignore E201,E202 --max-line-length=120 --exclude='migrations' .
+   - python manage.py makemigrations
+   - python manage.py migrate
+   - coverage run --source='.' manage.py test
+
+
+after_success:
+   - coverage report
+   - pip install --quiet python-coveralls
+   - coveralls
