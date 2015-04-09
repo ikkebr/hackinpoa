@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Bem-Vindo!{% endblock %}
+
+{% block content %}
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <br><br>
+
+            <h1 class="header center orange-text">{% lorem 3 w random %}</h1>
+
+            <div class="row center">
+                <h5 class="header col s12 light">{% lorem 5 w random %}</h5>
+            </div>
+            <div class="row center">
+                <a href="#" class="btn-large waves-effect waves-light orange">{% lorem 1 w %}</a>
+            </div>
+            <br><br>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center orange-text"><i class="mdi-image-flash-on"></i></h2>
+                        <h5 class="center">{% lorem 3 w random %}</h5>
+
+                        <p class="light">{% lorem 10 w random %}</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center blue-text"><i class="mdi-social-group"></i></h2>
+                        <h5 class="center">{% lorem 4 w random %}</h5>
+
+                        <p class="light">{% lorem 10 w random %}</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center green-text"><i class="mdi-action-settings"></i></h2>
+                        <h5 class="center">{% lorem 3 w random %}</h5>
+
+                        <p class="light">{% lorem 10 w random %}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

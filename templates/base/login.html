@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1 class="orange-text header center">Entrar no Sistema</h1>
+
+{% if messages %}
+<script>
+    {% for message in messages %}
+        toast("{{message}}", 8000, 'rounded');
+    {% endfor %}
+</script>
+{% endif %}
+
+    <p>Preencha o formulário abaixo com seu nome de usuário e senha.</p>
+
+{% if form.errors %}
+    <div class="row">
+    <div class="col s12 12">
+      <div class="card-panel red">
+        <span class="white-text">
+            Usuário ou senha inválido. Tente novamente.
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+{% endif %}
+
+<form method="post" class="col s12" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+
+    <div class="input-field col s12">
+        {{ form.username }}
+        {{ form.username.label_tag }}
+    </div>
+
+    <div class="input-field col s12">
+        {{ form.password }}
+        {{ form.password.label_tag }}
+    </div>
+
+ <button class="btn waves-effect waves-light" type="submit" name="action">Logar
+    <i class="mdi-content-send right"></i>
+  </button>
+
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}
