@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:$PORT hackinpoa.wsgi
+web: python manage.py runserver 0.0.0.0:$PORT
