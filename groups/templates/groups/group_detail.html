@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+	<h1> {{ object.name }} </h1>
+
+	<p> {{ object.is_public }} </p>
+
+	<h3>Membros:</h3>
+		{% if object.group_access_set.all %}
+			<ul>
+				{% for each in object.group_access_set.all %}
+					<li> {{ each.user.get_full_name }} </li>	
+				{% endfor %}
+			</ul>
+		{% else %}
+			Nenhum membro. Quer adicionar alguém?
+		{% endif %}
+{% endblock %}
