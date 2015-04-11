@@ -10,7 +10,7 @@
 		{% if object.group_access_set.all %}
 			<ul>
 				{% for each in object.group_access_set.all %}
-					<li> {{ each.user.get_full_name }} </li>	
+					<li> {{ each.user.userprofile.name }} </li>	
 				{% endfor %}
 			</ul>
 		{% else %}
