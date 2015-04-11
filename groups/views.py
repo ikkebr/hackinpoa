@@ -43,7 +43,6 @@ class GroupDetail(LoginRequiredMixin, DetailView):
     model = Group
     allow_empty = True
     paginate_by = 150
-    search_fields = ['body']
 
     def get_queryset(self):
         self.group = get_object_or_404(Group, id=self.kwargs['pk'])

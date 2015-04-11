@@ -22,12 +22,12 @@ class GroupDetailTests(TestCase):
 
 
     def teste_usuario_anonimo_retorna_302(self):
-        response = self.c.get(reverse("group_all", args=[1,]))
+        response = self.c.get(reverse("group_details", args=[1,]))
         self.assertEqual(response.status_code, 302)
 
     def teste_usuario_logado_com_acesso_retorna_200(self):
         self.c.login(username='dummy', password='dummy')
-        response = self.c.get(reverse("group_all", args=[self.acesso_a.group.id]))
+        response = self.c.get(reverse("group_details", args=[self.acesso_a.group.id]))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['currpage'], 'isall')
         self.assertEqual( len(response.context['object_list']), 3)
@@ -46,7 +46,7 @@ class GroupDetailTests(TestCase):
     def teste_admin_logado_sem_acesso_retorna_200(self):
         self.c.login(username='dummy', password='dummy')
         self.user.is_superuser = True
-        response = self.c.get(reverse("group_all", args=[2,]))
+        response = self.c.get(reverse("group_details", args=[2,]))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['currpage'], 'isall')
         self.assertEqual( len(response.context['object_list']), 1)
@@ -55,7 +55,7 @@ class GroupDetailTests(TestCase):
         self.c.login(username='dummy', password='dummy')
         self.user.is_superuser = False
         self.user.save()
-        response = self.c.get(reverse("group_all", args=[2,]))
+        response = self.c.get(reverse("group_details", args=[2,]))
         self.assertEqual(response.status_code, 404)
 
     def teste_usuario_logado_today_sem_acesso_retorna_404(self):
