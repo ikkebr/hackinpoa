@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 
 {% block title %}Entrar{% endblock %}
 {% block content %}
@@ -10,6 +10,12 @@
 {% if form.errors %}
 <p>Seu usuário ou senha não combinam. Tente novamente</p>
 {% endif %}
+
+
+{% load socialaccount %}
+{% providers_media_js %}
+<a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
+
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
