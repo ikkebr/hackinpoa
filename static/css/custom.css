@@ -6,7 +6,9 @@ h2 { font-size: 25px; font-weight: bold; color: #2B3C50; }
 
 /* HOME */
 .row.home { padding: 180px 0 ;  background: url(../img/bg.jpg) no-repeat top; background-size: cover; }
-.row.como-funciona { background: #fff;}
+
 
 /* COMO FUNCIONA */
-.row.como-funciona i.fa {  width: 60px; height: 60px; border-radius: 60px; background: #2b3e50; padding-top: 7px; padding-left: 2px; }
+.row.como-funciona { background: #fff;}
+.row.como-funciona i.fa { width: 60px; height: 60px; border-radius: 60px; background: #2b3e50; padding-top: 7px; padding-left: 2px; }
+.row.como-funciona .box { width: 50%; }
