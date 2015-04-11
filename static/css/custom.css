@@ -4,11 +4,14 @@ ul.navbar-nav { margin-top: 20px; }
 h1 { font-size: 40px; font-weight: bold; }
 h2 { font-size: 25px; font-weight: bold; color: #2B3C50; }
 
+/* LOGIN */
+.container.login .box-login { max-width: 450px; padding: 15px; margin: 0 auto; text-align: center; }
+.container.login .box-login .form-login { background: #FFF; padding:25px 50px; margin-top: 30px;}
+
 /* HOME */
 .row.home { padding: 180px 0 ;  background: url(../img/bg.jpg) no-repeat top; background-size: cover; }
 
-
 /* COMO FUNCIONA */
-.row.como-funciona { background: #fff;}
-.row.como-funciona i.fa { width: 60px; height: 60px; border-radius: 60px; background: #2b3e50; padding-top: 7px; padding-left: 2px; }
-.row.como-funciona .box { width: 50%; }
+.como-funciona .row { background: #fff;}
+.como-funciona .row i.fa { width: 60px; height: 60px; border-radius: 60px; background: #2b3e50; padding-top: 7px; padding-left: 2px; }
+.como-funciona .row .box { width: 50%; color: #2B3C50; }

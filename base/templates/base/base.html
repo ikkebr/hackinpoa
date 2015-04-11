@@ -40,7 +40,6 @@
           <ul class="nav navbar-nav pull-right">
             <li class="active"><a href="{% url 'index' %}">Home</a></li>
             <li class=""><a href="{% url 'index' %}">Como funciona</a></li>
-            <li class=""><a href="{% url 'index' %}">Contato</a></li>
           {% if user.is_authenticated %}
             <li class=""><a href="{% url 'index' %}">Comece uma viajem</a></li>
 				    <li><a href="{% url 'django.contrib.auth.views.logout_then_login' %}">Logout</a></li>
