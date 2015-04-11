@@ -22,3 +22,13 @@ class Group_Access(models.Model):
     group = models.ForeignKey(Group)
     user = models.ForeignKey(User)
     is_admin = models.BooleanField(default=False)
+
+
+from django.db.models.signals import post_save
+
+def create_access(sender, instance, created, raw, using, update_fields, *args, **kwargs):
+	if created:
+		new_access = Group_Access(group=instance, user=instance.owner, is_admin=True)
+		new_access.save()
+
+post_save.connect(create_access, sender=Group)
