@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^', include('base.urls')),
 
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^groups/', include('groups.urls')),
 
     url(r'^login', 'django.contrib.auth.views.login',
         {'template_name': 'base/login.html'}, name="login"),
