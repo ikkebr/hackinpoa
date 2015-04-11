@@ -1,13 +1,43 @@
 {% extends 'base/base.html' %}
 
-{% block title %}Início{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-	<h1>Início</h1>
-    <div id="map_canvas" style="width:100%; height:500px"></div>
-    <form id="init-route">
-        <input type="text" name="origin" placeholder="Endereço do ponto de partida">
-        <input type="text" name="destination" placeholder="Endereço do ponto de chegada">
-        <button type="submit">Enviar</button>
-    </form>
+	<div class="row home">
+	  <div class="col-md-offset-1 col-md-4">
+	    <h1>PLANEJE SUA VIAGEM COM OS AMIGOS</h1>
+	  	<p class="lead">Crie rotas, organize grupos e compartilhe sua experiência na estrada</p>
+	  	<a href="#" class="btn btn-default">Comece uma viajem</a>
+	  </div>
+	</div>
+	<div class="como-funciona">
+	  <div class="row">
+	    <div class="col-md-12 text-center">
+	      <h1><i class="fa fa-road"></i></h1>
+	      <h2>CRIE SUA ROTA</h2>
+	  	  <div class="center-block box">
+	  	    <p class="">Trace sua rota e marque os pontos de parada do seu grupo.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do  eiusmod
+	  		 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+	      </div>
+		</div>
+	  </div>
+	  <div class="row">
+	    <div class="col-md-12 text-center">
+	      <h1><i class="fa fa-users"></i></h1>
+	      <h2>ORGANIZE SEU GRUPO</h2>
+	  	  <div class="center-block box">
+	  	    <p class="">Organize e convide seu grupo de amigos para fazer a viajem com você. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+	      </div>
+		</div>
+	  </div>
+	  <div class="row">
+	    <div class="col-md-12 text-center">
+	      <h1><i class="fa fa-share-square-o"></i></h1>
+	      <h2>COMPARTILHE SUA EXPERIÊNCIA</h2>
+	  	  <div class="center-block box">
+	  	    <p class="">Crie lembretes para avisar outros motociclistas sobre as condições da estrada, condições climáticas, curvas perigosas entre outros.</p>
+	      </div>
+		</div>
+	  </div>
+	</div>
 {% endblock %}
