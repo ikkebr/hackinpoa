@@ -1,20 +1,18 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Cadastro{% endblock %}
+{% block title %}Cadastro de Usuário{% endblock %}
 
 {% block content %}
-    <h1 class="orange-text header center">Cadastre-se</h1>
+<h1>Cadastro de Usuário</h1>
+<p>Preencha o formulário para criar um usuário.</p>
+<form method="post" action="{% url 'signup' %}">
+	{% csrf_token %}
+	<table class='table'>
+		{{ form }}
+	</table>
 
-    <p>Preencha o formulário abaixo e entraremos em contato com você assim que a plataforma estiver aberta ao
-        público.</p>
+	<input class='btn btn-primary' type="submit" value="login" />
+	<input type="hidden" name="next" value="{{ next }}" />
+</form>
 
-    <br>
-    <form method="post" action="{% url "signup" %}">
-        {% include "form_snippet.html" with form=form %}
-        {% csrf_token %}
-
-        <button class="btn waves-effect waves-light" type="submit" name="action">Mostrar interesse!
-            <i class="mdi-content-send right"></i>
-        </button>
-    </form>
 {% endblock %}
