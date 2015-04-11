@@ -56,11 +56,12 @@ INSTALLED_APPS = (
     'base',
     'debug_toolbar',
     'compressor',
+    'groups',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
+    
 )
 
 SITE_ID = 1
