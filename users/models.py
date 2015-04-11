@@ -43,11 +43,15 @@ UF_CHOICES = (
     ('TO', 'Tocantins')
 )
 
+SEX_CHOICES = (('Male', 'M'),
+				('Female', 'F'),
+				('Other', 'O'))
+
 class UserProfile(models.Model):
 	 user = models.OneToOneField(User)
 
 	 name = models.CharField(max_length=30)
-	 sex = models.CharField(max_length=10, blank=True)
+	 sex = models.CharField(max_length=10, blank=True, choices=SEX_CHOICES)
 
 	 city = models.CharField(max_length=100)
 	 state = models.CharField(choices=UF_CHOICES, max_length=2)
