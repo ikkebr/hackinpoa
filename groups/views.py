@@ -53,11 +53,7 @@ class GroupDetail(LoginRequiredMixin, DetailView):
 
         if self.request.user.is_superuser or self.access:
 
-            query = self.request.GET.get('q', '')
-            if query:
-                return Message.objects.filter(group=self.group, body__icontains=query).select_related('origin')
-
-            return Message.objects.filter(group=self.group).select_related('origin')
+            return self.group
 
         raise Http404(u"Acesso negado a esse grupo.")
 
