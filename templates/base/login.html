@@ -4,14 +4,6 @@
 
     <h1 class="orange-text header center">Entrar no Sistema</h1>
 
-{% if messages %}
-<script>
-    {% for message in messages %}
-        toast("{{message}}", 8000, 'rounded');
-    {% endfor %}
-</script>
-{% endif %}
-
     <p>Preencha o formulário abaixo com seu nome de usuário e senha.</p>
 
 {% if form.errors %}
@@ -48,4 +40,14 @@
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 
+{% endblock %}
+
+{% block extrajs %}
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+            Materialize.toast("{{message}}", 8000, 'rounded');
+        {% endfor %}
+    </script>
+    {% endif %}
 {% endblock %}

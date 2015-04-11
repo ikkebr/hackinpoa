@@ -9,7 +9,7 @@
         público.</p>
 
     <br>
-    <form method="post" action=".">
+    <form method="post" action="{% url "signup" %}">
         {% include "form_snippet.html" with form=form %}
         {% csrf_token %}
 
