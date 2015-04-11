@@ -61,7 +61,7 @@ class UserProfile(models.Model):
 	 year = models.PositiveIntegerField(blank=True, null=True)
 
 	 category = models.CharField(choices=MOTO_CATEGORIES, null=True, max_length=200)
-	 manufactured = models.CharField(blank=True, null=True)
+	 manufactured = models.CharField(blank=True, null=True, max_length=20)
 
 
 	 def __unicode__(self):
@@ -69,7 +69,9 @@ class UserProfile(models.Model):
 
 from django.db.models.signals import post_save
 
-def create_profile(sender, instance, created, raw, using, update_fields):
+def create_profile(sender, instance, created, raw, using, update_fields, *args, **kwargs):
 	if created:
-		new_profile = UserProfile(user=sender, nome=sender.first_name+" "+sender.last_name)
+		new_profile = UserProfile(user=instance, name=instance.get_full_name())
 		new_profile.save()
+
+post_save.connect(create_profile, sender=User)

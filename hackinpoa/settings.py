@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'compressor',
     'groups',
+    'users',
 
     'allauth',
     'allauth.account',
