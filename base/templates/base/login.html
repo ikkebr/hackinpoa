@@ -17,6 +17,13 @@
 <a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
 
 
+<ul class="socialaccount_providers">
+{% include "socialaccount/snippets/provider_list.html" with process="login" %}
+</ul>
+
+ {% include "socialaccount/snippets/login_extra.html" %}
+
+
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
 <table class='table'>
