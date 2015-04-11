@@ -21,6 +21,6 @@ def edit_profile(request):
 		f = form.save(commit = False)
 		f.user = request.user
 		f.save()
-		messages.success('Perfil atualizado com sucesso.')
+		messages.success(request, 'Perfil atualizado com sucesso.')
 
 	return render(request, "account/edit.html", { 'form': form })
