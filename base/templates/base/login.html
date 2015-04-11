@@ -12,9 +12,9 @@
 {% endif %}
 
 
-{-% load socialaccount %-}
-{-% providers_media_js %-}
-<a href="{-% provider_login_url "facebook" method="js_sdk" %-}">Facebook Connect</a>
+{% load socialaccount %}
+{% providers_media_js %}
+<a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
 
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
