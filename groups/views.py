@@ -1,3 +1,4 @@
+#encoding: utf-8
 import datetime
 
 from django.shortcuts import get_object_or_404, redirect, render
@@ -80,9 +81,15 @@ class GroupDetail(LoginRequiredMixin, DetailView):
         return context
 
 
+
+class GroupAddMember(forms.ModelForm):
+    class Meta:
+        model = Group_Access
+        fields = ['user', 'is_admin']
+
 @login_required
-def add_group_members(request, gid):
-    group = get_object_or_404(Group, id=gid)
+def add_group_members(request, pk):
+    group = get_object_or_404(Group, id=pk)
     if not request.user.is_superuser:
         access = get_object_or_404(Group_Access, group=group, user=request.user, is_admin=True)
 
@@ -93,7 +100,8 @@ def add_group_members(request, gid):
         ga = form.save(commit=False)
         ga.group = group
         ga.save()
+        messages.success(request, 'Usuário adicionado ao grupo com sucesso')
 
         return redirect('group_details', args=[gid,])
-        
+
     return render(request, 'groups/group_add_member.html', {'form': form})
