@@ -11,6 +11,10 @@ class GroupDetailTests(TestCase):
         self.user.is_superuser = True
         self.user.save()
 
+        self.ouser = User.objects.create_user('dummy2', 'dummy2@henrique.email', 'dummy2')
+        self.ouser.is_superuser = False
+        self.ouser.save()
+
         self.grupo_a = Group.objects.create(id=1, is_public=0, name='foo', owner=self.user)
         self.grupo_a.save()
 
@@ -49,14 +53,14 @@ class GroupDetailTests(TestCase):
         self.assertEqual(response.context['currpage'], 'isall')
 
     def teste_usuario_logado_sem_acesso_retorna_404(self):
-        self.c.login(username='dummy', password='dummy')
+        self.c.login(username='dummy2', password='dummy2')
         self.user.is_superuser = False
         self.user.save()
         response = self.c.get(reverse("group_details", args=[2,]))
         self.assertEqual(response.status_code, 404)
 
     def teste_usuario_logado_today_sem_acesso_retorna_404(self):
-        self.c.login(username='dummy', password='dummy')
+        self.c.login(username='dummy2', password='dummy2')
         self.user.is_superuser = False
         self.user.save()
         response = self.c.get(reverse("group_details", args=[2,]))
@@ -105,7 +109,7 @@ class GroupListTests(TestCase):
 
         response = self.c.get(reverse("groups"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual( len(response.context["object_list"]), 1)
+        self.assertEqual( len(response.context["object_list"]), 2)
 
 
 class GroupCreateTests(TestCase):
