@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.contrib.auth import logout
 from django import forms
 
@@ -23,10 +23,10 @@ class LoginRequiredMixin(object):
 
 class GroupCreate(LoginRequiredMixin, TemplateView):
     def get(self, request):
-        return Http404('Not implemented')
+        return HttpResponse('Not implemented')
 
     def post(self, request):
-        return Http404('Not implemented')
+        return HttpResponse('Not implemented')
 
 
 class GroupList(LoginRequiredMixin, ListView):
@@ -39,7 +39,7 @@ class GroupList(LoginRequiredMixin, ListView):
         return Group.objects.filter(id__in=[each.group.id for each in Group_Access.objects.filter(user=self.request.user)])
 
 
-class GroupDetail(LoginRequiredMixin, DetailView):
+class GroupDetail(LoginRequiredMixin, ListView):
     model = Group
     allow_empty = True
     paginate_by = 150
@@ -52,7 +52,7 @@ class GroupDetail(LoginRequiredMixin, DetailView):
 
         if self.request.user.is_superuser or self.access:
 
-            return self.group
+            return Group.objects.filter(id=self.group.id)
 
         raise Http404(u"Acesso negado a esse grupo.")
 
@@ -60,5 +60,5 @@ class GroupDetail(LoginRequiredMixin, DetailView):
         context = super(GroupDetail, self).get_context_data(**kwargs)
         context['grupo'] = self.group
         context['query'] = self.request.GET.get('q', '')
-
+        context['currpage'] = 'isall'
         return context
