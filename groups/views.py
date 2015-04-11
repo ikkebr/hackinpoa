@@ -39,10 +39,8 @@ class GroupList(LoginRequiredMixin, ListView):
         return Group.objects.filter(id__in=[each.group.id for each in Group_Access.objects.filter(user=self.request.user)])
 
 
-class GroupDetail(LoginRequiredMixin, ListView):
+class GroupDetail(LoginRequiredMixin, DetailView):
     model = Group
-    allow_empty = True
-    paginate_by = 150
 
     def get_queryset(self):
         self.group = get_object_or_404(Group, id=self.kwargs['pk'])
