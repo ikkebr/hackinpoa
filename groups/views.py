@@ -10,6 +10,12 @@ from django import forms
 
 from .models import Group, Group_Access
 
+
+class GroupCreateForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name', 'is_public']
+
 def logout_view(request):
     logout(request)
     return redirect('django.contrib.auth.views.login')
@@ -23,10 +29,20 @@ class LoginRequiredMixin(object):
 
 class GroupCreate(LoginRequiredMixin, TemplateView):
     def get(self, request):
-        return HttpResponse('Not implemented')
+        form = GroupCreateForm()
+        return render(request, "groups/group_create.html", {'form': form})
 
     def post(self, request):
-        return HttpResponse('Not implemented')
+        form = GroupCreateForm(request.POST or None)
+
+        if form.is_valid():
+            grupo = form.save(commit=False)
+            grupo.owner = request.user
+            grupo.save()
+
+            messages.success(request, 'Grupo criado com sucesso')
+
+        return redirect(grupo)
 
 
 class GroupList(LoginRequiredMixin, ListView):
