@@ -10,6 +10,14 @@ from django import forms
 
 from .models import Group, Group_Access
 
+from django.contrib import messages
+
+
+class GroupCreateForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name', 'is_public']
+
 def logout_view(request):
     logout(request)
     return redirect('django.contrib.auth.views.login')
@@ -23,10 +31,20 @@ class LoginRequiredMixin(object):
 
 class GroupCreate(LoginRequiredMixin, TemplateView):
     def get(self, request):
-        return HttpResponse('Not implemented')
+        form = GroupCreateForm()
+        return render(request, "groups/group_create.html", {'form': form})
 
     def post(self, request):
-        return HttpResponse('Not implemented')
+        form = GroupCreateForm(request.POST or None)
+
+        if form.is_valid():
+            grupo = form.save(commit=False)
+            grupo.owner = request.user
+            grupo.save()
+
+            messages.success(request, 'Grupo criado com sucesso')
+
+        return redirect(grupo)
 
 
 class GroupList(LoginRequiredMixin, ListView):
@@ -39,10 +57,8 @@ class GroupList(LoginRequiredMixin, ListView):
         return Group.objects.filter(id__in=[each.group.id for each in Group_Access.objects.filter(user=self.request.user)])
 
 
-class GroupDetail(LoginRequiredMixin, ListView):
+class GroupDetail(LoginRequiredMixin, DetailView):
     model = Group
-    allow_empty = True
-    paginate_by = 150
 
     def get_queryset(self):
         self.group = get_object_or_404(Group, id=self.kwargs['pk'])
