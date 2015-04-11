@@ -35,6 +35,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Google maps token
+GOOGLE_MAPS_EMBED_TOKEN = "AIzaSyB3GhFOvzZ-NcN_NYu1b9RkPD4C1C6j0t8"
 
 # Application definition
 
@@ -127,6 +129,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
     'django.contrib.auth.context_processors.auth',
+    'base.context_processors.get_services_tokens'
 )
 
 AUTHENTICATION_BACKENDS = (
