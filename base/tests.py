@@ -30,7 +30,7 @@ class BaseTests(TestCase):
 
 
 class LoginTests(TestCase):
-    fixtures = ['app_data',]
+    fixtures = ['app_data', ]
 
     def setUp(self):
         self.c = Client()
