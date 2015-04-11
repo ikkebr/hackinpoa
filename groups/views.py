@@ -78,3 +78,22 @@ class GroupDetail(LoginRequiredMixin, DetailView):
         context['query'] = self.request.GET.get('q', '')
         context['currpage'] = 'isall'
         return context
+
+
+@login_required
+def add_group_members(request, gid):
+    group = get_object_or_404(Group, id=gid)
+    if not request.user.is_superuser:
+        access = get_object_or_404(Group_Access, group=group, user=request.user, is_admin=True)
+
+    
+    form = GroupAddMember(request.POST or None)
+
+    if form.is_valid():
+        ga = form.save(commit=False)
+        ga.group = group
+        ga.save()
+
+        return redirect('group_details', args=[gid,])
+        
+    return render(request, 'groups/group_add_member.html', {'form': form})
