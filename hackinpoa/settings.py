@@ -47,10 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
+    
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
@@ -59,6 +56,11 @@ INSTALLED_APPS = (
     'base',
     'debug_toolbar',
     'compressor',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
 )
 
 SITE_ID = 1
@@ -133,4 +135,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 
     'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+TEMPLATE_LOADERS = (
+'django.template.loaders.filesystem.Loader',
+'django.template.loaders.app_directories.Loader',
 )
