@@ -1,0 +1,14 @@
+
+{% load widget_tweaks %}
+
+
+{% for field in form %}
+<div class="form-group form-group-lg">
+	{{ field.errors }}
+	<label class="col-md-4 control-label" for="id_password">{{ field.label }}</label>
+	<div class="col-md-8">
+		{% render_field field class='form-control' %}
+	</div>
+
+</div>
+{% endfor %}
