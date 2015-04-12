@@ -22,7 +22,6 @@ class CreateTrip(LoginRequiredMixin, CreateView):
 
     def post(self, request):
         form = self.form(data=request.POST)
-        from IPython import embed; embed()
         if form.is_valid():
             trip = form.save()
 

@@ -26,6 +26,10 @@
 		<a class='btn btn-warning' href='{% url "leave_group" object.id %}'>Abandonar Grupo</a>
 	{% endif %}
 
+	{% if is_member %}
+		<a class='btn btn-large btn-primary' href='{% url "trip:create" %}?group={{ object.id }}'>Criar Trip</a>
+	{% endif %}
+
 	</div>
 </div>
 {% endblock %}
