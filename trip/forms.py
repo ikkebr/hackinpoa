@@ -2,7 +2,7 @@
 
 from django import forms
 
-from .models import Trip, Route
+from .models import Trip, Route, WayPoint
 
 class TripForm(forms.ModelForm):
 
@@ -18,3 +18,9 @@ class RouteForm(forms.ModelForm):
     class Meta:
         model = Route
         exclude = ["difficult", "track_type"]
+
+
+class WayPointForm(forms.ModelForm):
+
+    class Meta:
+        model = WayPoint

@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from groups.views import LoginRequiredMixin
 
 from .models import Trip, Route
-from .forms import TripForm, RouteForm
+from .forms import TripForm, RouteForm, WayPointForm
 
 
 class CreateTrip(LoginRequiredMixin, CreateView):
@@ -62,3 +62,15 @@ class CreateRoute(LoginRequiredMixin, CreateView):
 
             return HttpResponse(json.dumps(data),
                 content_type="application/json")
+
+
+def create_waypoint(request):
+    form = WayPointForm(data=request.POST)
+
+    if form.is_valid():
+        point = form.save()
+
+        return HttpResponse(json.dumps({'id': point.id}), content_type="application/json")
+
+    return HttpResponse("error", content_type="application/json")
+

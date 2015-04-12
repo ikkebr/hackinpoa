@@ -58,6 +58,7 @@ Mototrip.Create = {
                 var start_longitude = leg.start_location.D.toPrecision(5);
 
                 if(latitude == start_latitude && longitude == start_longitude){
+                    priv.addWayPointOnRoute(leg);
                     table.find("tbody").append("<tr><td>" + leg.start_address + "</td><td>" + leg.distance.text + "</td></tr>");
                 }
             }
@@ -91,6 +92,22 @@ Mototrip.Create = {
                 },
                 success: function(data){
                     $("#route").val(data.id);
+                }
+            });
+        }
+
+        priv.addWayPointOnRoute = function(point){
+            $.ajax({
+                url: "/trips/waypoints/create",
+                type: "POST",
+                data: {
+                    route: $("#route").val(),
+                    latitude: point.start_location.k,
+                    longitude: point.start_location.D,
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken").val(),
+                },
+                success: function(data){
+                    console.log(data);
                 }
             });
         }
