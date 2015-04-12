@@ -24,9 +24,11 @@
     <div class='row'>
         <div class='col-md-8 col-md-offset-2'>
             <h4>Roteiro:</h4>
-            {{ object.route_set.all }}
             {% for cada in object.route_set.all %}
-                {{ cada }}
+            {{ cada.start_point }} até {{ cada.end_point }}
+                {% for waypoint in cada.waypoint_set.all %}
+                    way: {{ waypoint }}
+                {% endfor %}
             {% endfor %}
         </div>
     </div>
