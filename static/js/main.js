@@ -20,11 +20,6 @@ Mototrip.Create = {
                 navigator.geolocation.getCurrentPosition(function(location){
                     priv.map.setCenter(new google.maps.LatLng(location.coords.latitude,
                         location.coords.longitude));
-                    // new google.maps.Marker({
-                    //     position: map.getCenter(),
-                    //     map: map,
-                    //     title: 'Click to zoom'
-                    // });
                 });
             }
         }
@@ -50,12 +45,12 @@ Mototrip.Create = {
             var legs = data.routes[0].legs;
             var latitude = current_point.k.toPrecision(4);
             var longitude = current_point.D.toPrecision(4);
-            var table = $("#points")
+            var table = $("#points");
 
             for(i=0; i<=legs.length - 1; i++){
                 var leg = legs[i];
-                var start_latitude = leg.start_location.k.toPrecision(5);
-                var start_longitude = leg.start_location.D.toPrecision(5);
+                var start_latitude = leg.start_location.k.toPrecision(4);
+                var start_longitude = leg.start_location.D.toPrecision(4);
 
                 if(latitude == start_latitude && longitude == start_longitude){
                     priv.addWayPointOnRoute(leg);
