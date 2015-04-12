@@ -41,3 +41,15 @@
 	  </div>
 	</div>
 {% endblock %}
+{% block extrajs %}
+<script>
+$(document).ready(function(){
+	$(".lnk-como-funciona").click(function() {
+	    $('html, body').animate({
+	        scrollTop: $("#como-funciona").offset().top - 100
+	    }, 2000);
+	});
+});
+
+</script>
+{% endblock %}
