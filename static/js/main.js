@@ -48,9 +48,9 @@ Mototrip.Create = {
 
         priv.addPointOnTable = function(data, current_point){
             var legs = data.routes[0].legs;
-            var latitude = current_point.k.toPrecision(5);
-            var longitude = current_point.D.toPrecision(5);
-            var table = $("#points");
+            var latitude = current_point.k.toPrecision(4);
+            var longitude = current_point.D.toPrecision(4);
+            var table = $("#points")
 
             for(i=0; i<=legs.length - 1; i++){
                 var leg = legs[i];
@@ -209,6 +209,7 @@ Mototrip.Create = {
                 var origin = form.find("input[name='origin']").val();
                 var destination = form.find("input[name='destination']").val();
 
+                form.find("button").prop("disabled", true);
                 priv.addInitialRoute(origin, destination);
             });
 
