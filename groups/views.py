@@ -94,14 +94,16 @@ def add_group_members(request, pk):
         access = get_object_or_404(Group_Access, group=group, user=request.user, is_admin=True)
 
     
-    form = GroupAddMember(request.POST or None)
+    from django.forms.models import inlineformset_factory
+    GAFormset = inlineformset_factory(Group, Group_Access, fields=['user', 'is_admin'])
+
+    form = GAFormset(request.POST or None, instance=group)
 
     if form.is_valid():
-        ga = form.save(commit=False)
-        ga.group = group
-        ga.save()
+        ga = form.save()
+        #ga.save()
         messages.success(request, 'Usuário adicionado ao grupo com sucesso')
 
-        return redirect('group_details', args=[gid,])
+        return redirect('group_details', pk)
 
-    return render(request, 'groups/group_add_member.html', {'form': form})
+    return render(request, 'groups/group_add_member.html', {'form': form, 'pk': pk})
