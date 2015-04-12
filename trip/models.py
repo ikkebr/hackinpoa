@@ -50,6 +50,8 @@ class Route(models.Model):
 
 
 class WayPoint(models.Model):
+    route = models.ForeignKey(Route, null=True)
+
     description = models.CharField(u"Descrição", max_length=255, null=True,
         blank=True)
     latitude = models.FloatField(null=True, blank=True)

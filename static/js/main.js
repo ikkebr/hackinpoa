@@ -65,12 +65,34 @@ Mototrip.Create = {
 
         priv.setFormData = function(data){
             var legs = data.routes[0].legs;
-            var distance;
-            var duration;
+            var trip = $("#trip").attr("value");
+            var distance = 0.0;
+            var duration = 0.0;
 
             for(i=0; i<=legs.length - 1; i++){
-
+                var leg = legs[i];
+                distance += leg.distance.value;
+                duration += leg.duration.value;
             }
+
+            distance = (distance / 1000).toPrecision(2);
+            duration = "00:" + (duration / 60).toPrecision(2);
+
+            $.ajax({
+                url: window.location.pathname,
+                type: "POST",
+                data: {
+                    trip: trip,
+                    distance: distance,
+                    duration: duration,
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken").val(),
+                    start_point: priv.getInitialRoute()[0],
+                    end_point: priv.getInitialRoute()[1],
+                },
+                success: function(data){
+                    $("#route").val(data.id);
+                }
+            });
         }
 
         priv.setPoint = function(origin, destination, initial, waypoints, current_point){
@@ -82,10 +104,12 @@ Mototrip.Create = {
             }, function(data, status){
                 if(initial == false){
                     priv.addPointOnTable(data, current_point);
+                }else{
+                    priv.setFormData(data);
                 }
+
                 priv.directionsDisplay.setMap(priv.map);
                 priv.directionsDisplay.setDirections(data);
-                priv.setFormData(data);
             });
         }
 
