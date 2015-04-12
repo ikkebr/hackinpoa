@@ -5,6 +5,10 @@
 <div class="row">
 	<form class="form-horizontal" method="post">
 		<h1 class="text-center">Nova Viagem</h1>
+		{% csrf_token %}
+		<input type="hidden" name="owner" value="{{ user.id }}">
+		<input type="hidden" name="group" value="{{ request.GET.group }}">
+
 		<div class="form-group form-group-lg">
 			<label class="col-md-offset-2 col-md-2 control-label" for="id_name">Nome da viagem</label>
 			<div class="col-md-6">
@@ -12,7 +16,7 @@
 			</div>
 		</div>
 		<div class="form-group form-group-lg">
-			<label class="col-md-offset-2 col-md-2 control-label" for="id_partida">Local de partida</label>
+			<label class="col-md-offset-2 col-md-2 control-label" for="id_start_point">Local de partida</label>
 			<div class="col-md-6">
 				<input class="form-control" type="text" id="id_start_point" name="start_point" required>
 			</div>
@@ -42,6 +46,11 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label class="col-md-offset-2 col-md-2 control-label" for="id_is_public">Publico
+				<input type="checkbox" name="is_public" id="id_is_public" checked>
+			</label>
+		</div>
+		<div class="form-group">
 			<div class="col-md-offset-4 col-md-6">
 				<button class="btn btn-lg btn-primary pull-right" type="submit">Avançar</button>
 			</div>
@@ -56,8 +65,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 	<script>
 	$(document).ready(function(){
-		mapsAutocomplete($('#id_partida')[0]);
-		mapsAutocomplete($('#id_chegada')[0]);
+		mapsAutocomplete($('#id_start_point')[0]);
+		mapsAutocomplete($('#id_end_point')[0]);
 	});
 	var placeSearch, autocomplete;
 	var componentForm = {
