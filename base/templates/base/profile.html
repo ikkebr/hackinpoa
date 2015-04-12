@@ -1,8 +1,11 @@
-{% extends 'base/base.html' %}
+{% extends 'base/master.html' %}
 
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
+
+<div class='row'>
+	<div class='col-md-8 col-md-offset-2'>
 	<h1>Olá {{ user.userprofile.name }}!</h1>
 	
 
@@ -14,15 +17,17 @@
 			{% endfor %}
 		</ul>
 		{% else %}
-			Você nao faz parte de nenhum grupo. <a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
+			Você nao faz parte de nenhum grupo.<br> <a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
 		{% endif %}
 
 
-
+	<br>
 	<p class="lead">Você pode fazer várias coisas legais:</p>
 	<ul>
-		<li><a href="{% url 'groups' %}">Gerenciar seus Grupos</a></li>
+		<li><a href="{% url 'groups' %}">Participar de um Grupo</a></li>
 		<li><a href="{% url 'edit_profile' %}">Completar seu Perfil</a></li>
-		<li><a href="">Comecar uma Viagem</a></li>
+		<li><a href="{% url 'trip_list' %}">Comecar uma Viagem</a></li>
 	</ul>
+	</div>
+</div>
 {% endblock %}

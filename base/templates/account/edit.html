@@ -1,12 +1,16 @@
-{% extends 'base/base.html' %}
+{% extends 'base/master.html' %}
 
 {% block content %}
-<form method="post" action="">
-	<table class='table table-striped'>
-	{{ form }}
-	</table>
+<div class='row'>
+	<div class="box-form">
+		<form class='form-horizontal' method="post" action="{% url 'edit_profile' %}">
+			<h2>Editar Perfil</h2>
 
-	{% csrf_token %}
-	<button class='btn btn-primary'>Salvar Perfil</button>
-</form>
+			{% include "base/snippet.html" with form=form %}
+
+			{% csrf_token %}
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
+		</form>
+	</div>
+</div>
 {% endblock %}

@@ -3,6 +3,11 @@
 {% block title %}Cadastro de Usuário{% endblock %}
 
 {% block content %}
+
+{% if form.errors %}
+	<p>Ocorreu um erro. Tente novamente.</p>
+{% endif %}
+
 <div class="row">
 	<div class="box-form">
 		<form class="form-horizontal" method="post" action="{% url 'signup' %}">
@@ -11,25 +16,25 @@
 			<div class="form-group form-group-lg">
 				<label class="col-md-4 control-label" for="id_name">*Nome</label>
 				<div class="col-md-8">
-					<input class="form-control" type="text" id="id_name" name="name" required>
+					<input class="form-control" type="text" id="id_name" name="nome" required>
 				</div>
 			</div>
 			<div class="form-group form-group-lg">
 				<label class="col-md-4 control-label" for="id_username">*Nome de Usuário</label>
 				<div class="col-md-8">
-					<input class="form-control" type="text" id="id_username" name="username">
+					<input class="form-control" type="text" id="id_username" name="username" required>
 				</div>
 			</div>
 			<div class="form-group form-group-lg">
 				<label class="col-md-4 control-label" for="id_password">*Senha</label>
 				<div class="col-md-8">
-					<input class="form-control" type="password" id="id_password" name="password" required>
+					<input class="form-control" type="text" id="id_password" name="password1" required>
 				</div>
 			</div>
 			<div class="form-group form-group-lg">
 				<label class="col-md-4 control-label" for="id_password2">*Confirmar Senha</label>
 				<div class="col-md-8">
-					<input class="form-control" type="password" id="id_password2" name="password2" required>
+					<input class="form-control" type="text" id="id_password2" name="password2" required>
 				</div>
 			</div>
 			<div class="form-group form-group-lg">
@@ -39,14 +44,20 @@
 				<div class="col-md-8">
 					<div class="radio-inline">
 						<label>
-							<input type="radio" name="sexo" id="id_sexo_m" value="m" checked>
+							<input type="radio" name="sexo" id="id_sexo_m" value="M" checked>
 							Masculino
 						</label>
 					</div>
 					<div class="radio-inline">
 						<label>
-							<input type="radio" name="sexo" id="id_sexo_f" value="f">
+							<input type="radio" name="sexo" id="id_sexo_f" value="F">
 							Feminino
+						</label>
+					</div>
+					<div class="radio-inline">
+						<label>
+							<input type="radio" name="sexo" id="id_sexo_f" value="O">
+							Outro
 						</label>
 					</div>
 				</div>
@@ -54,13 +65,40 @@
 			<div class="form-group form-group-lg">
 				<label class="col-md-4 control-label" for="id_city">*Cidade</label>
 				<div class="col-md-8">
-					<input class="form-control" type="text" id="id_city" name="city" required>
+					<input class="form-control" type="text" id="id_city" name="cidade" required>
 				</div>
 			</div>
 			<div class="form-group form-group-lg">
 				<label class="col-md-4 control-label" for="id_state">*Estado</label>
 				<div class="col-md-8">
-					<input class="form-control" type="text" id="id_state" name="state" required>
+					<select id="id_estado" name="estado" class='form-control' required>
+						<option value="AC">Acre</option>
+						<option value="AL">Alagoas</option>
+						<option value="AP">Amapá</option>
+						<option value="BA">Bahia</option>
+						<option value="CE">Ceará</option>
+						<option value="DF">Distrito Federal</option>
+						<option value="ES">Espírito Santo</option>
+						<option value="GO">Goiás</option>
+						<option value="MA">Maranão</option>
+						<option value="MG">Minas Gerais</option>
+						<option value="MS">Mato Grosso do Sul</option>
+						<option value="MT">Mato Grosso</option>
+						<option value="PA">Pará</option>
+						<option value="PB">Paraíba</option>
+						<option value="PE">Pernanbuco</option>
+						<option value="PI">Piauí</option>
+						<option value="PR">Paraná</option>
+						<option value="RJ">Rio de Janeiro</option>
+						<option value="RN">Rio Grande do Norte</option>
+						<option value="RO">Rondônia</option>
+						<option value="RR">Roraima</option>
+						<option value="RS">Rio Grande do Sul</option>
+						<option value="SC">Santa Catarina</option>
+						<option value="SE">Sergipe</option>
+						<option value="SP">São Paulo</option>
+						<option value="TO">Tocantins</option>
+					</select>
 				</div>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>

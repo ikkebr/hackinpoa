@@ -1,3 +1,5 @@
+# encoding: iso-8859-1
+
 from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import User
@@ -5,8 +7,8 @@ from django.utils.functional import cached_property
 
 
 class Group(models.Model):
-    name = models.CharField(max_length=200, default='Desconhecido')
-    is_public = models.BooleanField(default=False)
+    name = models.CharField("Nome", max_length=200)
+    is_public = models.BooleanField("Grupo Público?", default=False)
     date_created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User)
 

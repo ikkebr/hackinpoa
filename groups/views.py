@@ -57,6 +57,11 @@ class GroupList(LoginRequiredMixin, ListView):
 
         return Group.objects.filter(id__in=[each.group.id for each in Group_Access.objects.filter(user=self.request.user)])
 
+    def get_context_data(self, **kwargs):
+        context = super(GroupList, self).get_context_data(**kwargs)
+        context['public_groups'] = Group.objects.filter(is_public=True)
+
+        return context
 
 class GroupDetail(LoginRequiredMixin, DetailView):
     model = Group
@@ -64,20 +69,21 @@ class GroupDetail(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         self.group = get_object_or_404(Group, id=self.kwargs['pk'])
 
-        if not self.request.user.is_superuser:
-            self.access = get_object_or_404(Group_Access, group=self.group, user=self.request.user)
+        #if not self.request.user.is_superuser:
+        #    self.access = get_object_or_404(Group_Access, group=self.group, user=self.request.user)
 
-        if self.request.user.is_superuser or self.access:
+        #if self.request.user.is_superuser or self.access:
 
-            return Group.objects.filter(id=self.group.id)
+        return Group.objects.filter(id=self.group.id)
 
-        raise Http404(u"Acesso negado a esse grupo.")
+        #raise Http404(u"Acesso negado a esse grupo.")
 
     def get_context_data(self, **kwargs):
         context = super(GroupDetail, self).get_context_data(**kwargs)
         context['grupo'] = self.group
         context['query'] = self.request.GET.get('q', '')
         context['currpage'] = 'isall'
+        context['is_member'] = Group_Access.objects.filter(group=self.group, user=self.request.user)
         return context
 
 
@@ -86,6 +92,32 @@ class GroupAddMember(forms.ModelForm):
     class Meta:
         model = Group_Access
         fields = ['user', 'is_admin']
+
+
+@login_required
+def join_group(request, pk):
+    group = get_object_or_404(Group, id=pk)
+    access, created = Group_Access.objects.get_or_create(group=group, user=request.user)
+    access.save()
+
+    if created:
+        messages.success(request, 'Você entrou no grupo.')
+
+    return redirect(group)
+
+def leave_group(request, pk):
+    group = get_object_or_404(Group, id=pk)
+    access, created = Group_Access.objects.get_or_create(group=group, user=request.user)
+
+    if access.is_admin:
+        messages.warning(request, 'Você não pode sair do grupo.')
+        return redirect(group)
+
+    access.delete()
+
+    messages.success(request, 'Você saiu do grupo.')
+    return redirect(group)
+
 
 @login_required
 def add_group_members(request, pk):
@@ -107,3 +139,13 @@ def add_group_members(request, pk):
         return redirect('group_details', pk)
 
     return render(request, 'groups/group_add_member.html', {'form': form, 'pk': pk})
+
+
+
+def trip_list(request):
+    grupos = Group_Access.objects.filter(user=request.user)
+    from trip.models import Trip
+
+    publicos = Trip.objects.filter(is_public=True)
+
+    return render(request, 'groups/trip_list.html', { 'grupos': grupos, 'publicos': publicos  })

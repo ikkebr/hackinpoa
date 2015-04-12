@@ -1,19 +1,53 @@
-{% extends 'base/base.html' %}
+{% extends 'base/master.html' %}
 
 
 {% block content %}
+<div class='row'>
+	<div class='col-md-8 col-md-offset-2'>
 	<h1> {{ object.name }} </h1>
 
-	<p> {{ object.is_public }} </p>
+	<p>Grupo {% if object.is_public %}Público{% else %}Privado{% endif %}</p>
 
-	<h3>Membros:</h3>
-		{% if object.group_access_set.all %}
+
+	<div class="col-md-6">
+		<h3>Membros:</h3>
+			{% if object.group_access_set.all %}
+				<ul>
+					{% for each in object.group_access_set.all %}
+						<li><a>x {{ each.user.userprofile.name }}</a></li>	
+					{% endfor %}
+				</ul>
+			{% else %}
+				Nenhum membro. <br><br>
+				Quer participar do grupo? <br>
+			{% endif %}
+		
+		{% if not is_member %}
+			<a class='btn btn-primary' href='{% url "join_group" object.id %}'>Participar do Grupo</a>
+		{% else %}
+			<a class='btn btn-danger' href='{% url "leave_group" object.id %}'>Abandonar Grupo</a>
+		{% endif %}
+	</div>
+
+	<div class="col-md-6">
+		<h3>Roteiros do Grupo</h3>
+		{% if object.trip_set.all %}
 			<ul>
-				{% for each in object.group_access_set.all %}
-					<li> {{ each.user.userprofile.name }} </li>	
+				{% for each in object.trip_set.all %}
+					<li><a href='{% url "trip:create-route" each.id %}'>{{ each.name }}</a></li>
 				{% endfor %}
 			</ul>
 		{% else %}
-			Nenhum membro. Quer adicionar alguém?
+			<p>Esse grupo ainda não criou nenhum roteiro.
+				{% if not is_member %} Torne-se membro do grupo para criar um roteiro. {% endif %}
+			</p>
 		{% endif %}
+
+		{% if is_member %}
+			<a class='btn btn-large btn-primary' href='{% url "trip:create" %}?group={{ object.id }}'>Criar Novo Roteiro</a>
+		{% endif %}
+	</div>
+
+	</div>
+</div>
 {% endblock %}

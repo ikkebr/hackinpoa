@@ -1,0 +1,41 @@
+{% extends 'base/master.html' %}
+
+{% block content %}
+	<div class="row">
+
+		<div class='col-md-8 col-md-offset-2'>
+
+			<p>Para criar um roteiro é necessário fazer parte de algum grupo. Caso você ainda não faća parte de um grupo, você pode criar o seu grupo na aba "Grupos".</p>
+
+			<div class='col-md-6'>
+				<h1>Meus Roteiros</h1>
+				{% for agroup in grupos %}
+					<ul>
+					{% if agroup.group.trip_set.all %}
+						<li><h3><a href='{% url "group_details" agroup.group.id %}'>Grupo {{ agroup.group.name }}</a></h3>
+						<ul>
+						{% for trip in agroup.group.trip_set.all %}
+							<li><a href="">{{ trip.name }}</a></li>
+						{% endfor %}
+						</ul></li>
+					{% endif %}
+					</ul>
+				{% endfor %}
+			</div>
+
+
+			<div class='col-md-6'>
+				<h1>Roteiros Públicos</h1>
+
+				<ul>
+					{% for trip in publicos %}
+							<li><a href="{% url %}">{{ trip.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+
+
+		</div>
+
+	</div>
+{% endblock %}

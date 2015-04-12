@@ -50,18 +50,18 @@ SEX_CHOICES = (('M', 'Masculino'),
 class UserProfile(models.Model):
 	 user = models.OneToOneField(User)
 
-	 name = models.CharField(max_length=30)
-	 sex = models.CharField(max_length=10, blank=True, choices=SEX_CHOICES)
+	 name = models.CharField("Nome", max_length=30)
+	 sex = models.CharField("Sexo", max_length=10, blank=True, choices=SEX_CHOICES)
 
-	 city = models.CharField(max_length=100)
-	 state = models.CharField(choices=UF_CHOICES, max_length=2)
+	 city = models.CharField("Cidade", max_length=100)
+	 state = models.CharField("Estado", choices=UF_CHOICES, max_length=2)
 
-	 motorcycle = models.CharField(max_length=200, blank=True, null=True)
-	 cc = models.PositiveIntegerField(blank=True, null=True)
-	 year = models.PositiveIntegerField(blank=True, null=True)
+	 motorcycle = models.CharField("Modelo", max_length=200, blank=True, null=True)
+	 cc = models.PositiveIntegerField("Cilindrada", blank=True, null=True)
+	 year = models.PositiveIntegerField("Ano", blank=True, null=True)
 
-	 category = models.CharField(choices=MOTO_CATEGORIES, null=True, max_length=200)
-	 manufactured = models.CharField(blank=True, null=True, max_length=20)
+	 category = models.CharField("Categoria", choices=MOTO_CATEGORIES, null=True, max_length=200)
+	 manufactured = models.CharField("Fabricante", blank=True, null=True, max_length=20)
 
 
 	 def __unicode__(self):
