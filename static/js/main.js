@@ -12,7 +12,7 @@ Mototrip.Create = {
         priv.body = $("body");
         priv.directionService = new google.maps.DirectionsService();
         priv.directionsDisplay = new google.maps.DirectionsRenderer({
-            draggable: true
+            draggable: false
         });
 
         priv.setCurrentLocation = function () {

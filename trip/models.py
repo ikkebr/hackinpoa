@@ -16,7 +16,8 @@ DIFFICULT = (
 TRACK_TYPE = (
     ("group", "Terra"),
     ("asphalt", "Asfalto"),
-    ("pave", "Pavimento")
+    ("pave", "Pavimento"),
+    ("general", "Misto")
 )
 
 
