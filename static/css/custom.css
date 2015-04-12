@@ -31,3 +31,5 @@ body.system { background: #FFF; color: #2b3e50;}
 .system .form-horizontal .form-group .control-label { color: #2B3C50; font-size: 16px; font-weight: bold;}
 .system .form-horizontal .form-group > div { padding-top: 8px; }
 .system .form-horizontal .form-group .radio-inline label { font-size: 14px; }
+
+.system #init-route {padding: 25px;}

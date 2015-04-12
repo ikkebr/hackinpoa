@@ -1,0 +1,89 @@
+{% extends "base/master.html" %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+
+<div class="row">
+    <div class='col-md-8 col-md-offset-2'>
+    <h1> {{ trip.name }} </h1>
+    <form id="init-route" class='form-horizontal' method="post" action=".">
+        {% csrf_token %}
+        <input type="hidden" id="trip" value="{{ trip.id }}">
+        <input type="hidden" id="route">
+        <div class="form-group form-group-lg">
+            <label class="col-md-2 control-label" for="id_start_point">Partida</label>
+                <div class="col-md-8">
+            <input type="text" id="id_start_point" name="origin" class="form-control" placeholder="Endereço do ponto de partida" value="{{ trip.start_point }}">
+                </div>
+        </div>
+       <div class="form-group form-group-lg">
+        <label class="col-md-2 control-label" for="id_name">Destino</label>
+                <div class="col-md-8">
+            <input type="text" id="id_destination" name="destination" class="form-control" placeholder="Endereço do ponto de chegada" value="{{ trip.end_point }}">
+            </div>
+        </div>
+        <div class="form-group form-group-lg">
+                <label class="col-md-2 control-label" for="id_difficult">Dificuldade</label>
+                <div class="col-md-8">
+            <select id="id_difficult" class="form-control" name="difficult">
+            <option value="easy" selected="selected">Fácil</option>
+            <option value="medium">Médio</option>
+            <option value="hard">Difícil</option>
+            </select>
+            </div>
+
+        </div>
+
+        <div class="form-group form-group-lg">
+            <label class="col-md-2 control-label" for="id_track_type">Pista</label>
+                <div class="col-md-8">
+                    <select id="id_track_type" class="form-control" name="track_type">
+                    <option value="group" selected="selected">Terra</option>
+                    <option value="asphalt">Asfalto</option>
+                    <option value="pave">Pavimento</option>
+                    </select>
+                 </div>
+        </div>
+
+            <div class="form-group form-group-lg">
+                <div class='col-md-8 col-md-offset-2'>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div class="row" style='padding-top: 10px;'>
+    <div id="map_canvas" style="width:100%; height:500px"></div>
+    <div class='col-md-8 col-md-offset-2'>
+
+        <hr>
+
+        <h2>Distância Total: 123 KM</h2>
+        <h2>Tempo de Viagem: 123 horas</h2>
+
+        <hr>
+
+        <h3>Paradas Programadas:</h3>
+
+        <style>
+            .foo tr {
+                border-top: 3px solid #ccc;
+                padding: 5px;
+                font-size: 12pt;
+            }
+        </style>
+
+        <table class='table table-bordered foo' id="points">
+            <tbody></tbody>
+        </table>
+    </div>
+
+</div>
+</div>
+{% endblock %}
+{% block extrajs %}
+{% endblock %}

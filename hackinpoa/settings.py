@@ -35,6 +35,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Google maps token
+GOOGLE_MAPS_EMBED_TOKEN = "AIzaSyB3GhFOvzZ-NcN_NYu1b9RkPD4C1C6j0t8"
 
 # Application definition
 
@@ -47,7 +49,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    
+
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
@@ -58,13 +60,12 @@ INSTALLED_APPS = (
     'compressor',
     'groups',
     'users',
+    'trip',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
     'widget_tweaks',
-    
 )
 
 SITE_ID = 1
@@ -133,7 +134,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
     'django.contrib.auth.context_processors.auth',
+<<<<<<< HEAD
     'django.contrib.messages.context_processors.messages',
+=======
+    'base.context_processors.get_services_tokens'
+>>>>>>> trips
 )
 
 AUTHENTICATION_BACKENDS = (
