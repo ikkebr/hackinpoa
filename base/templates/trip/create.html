@@ -12,25 +12,25 @@
 			</div>
 		</div>
 		<div class="form-group form-group-lg">
-			<label class="col-md-offset-2 col-md-2 control-label" for="id_partida">Local de partida</label>
+			<label class="col-md-offset-2 col-md-2 control-label" for="id_start_point">Local de partida</label>
 			<div class="col-md-6">
 				<input class="form-control" type="text" id="id_start_point" name="start_point" required>
 			</div>
 		</div>
 		<div class="form-group form-group-lg">
-			<label class="col-md-offset-2 col-md-2 control-label" for="id_chegada">Local de chegada</label>
+			<label class="col-md-offset-2 col-md-2 control-label" for="id_end_point">Local de chegada</label>
 			<div class="col-md-6">
 				<input class="form-control" type="text" id="id_end_point" name="end_point" required>
 			</div>
 		</div>
 		<div class="form-group form-group-lg">
-			<label class="col-md-offset-2 col-md-2 control-label" for="id_data_partida">Data de partida</label>
+			<label class="col-md-offset-2 col-md-2 control-label" for="id_start_at">Data de partida</label>
 			<div class="col-md-6">
 				<input class="form-control" type="date" id="id_start_at" name="start_at" required>
 			</div>
 		</div>
 		<div class="form-group form-group-lg">
-			<label class="col-md-offset-2 col-md-2 control-label" for="id_data_chegada">Data de chegada</label>
+			<label class="col-md-offset-2 col-md-2 control-label" for="id_end_at">Data de chegada</label>
 			<div class="col-md-6">
 				<input class="form-control" type="date" id="id_end_at" name="end_at" required>
 			</div>
@@ -53,11 +53,11 @@
 {% endblock %}
 
 {% block extrajs %}
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+
 	<script>
 	$(document).ready(function(){
-		mapsAutocomplete($('#id_partida')[0]);
-		mapsAutocomplete($('#id_chegada')[0]);
+		mapsAutocomplete($('#id_start_point')[0]);
+		mapsAutocomplete($('#id_end_point')[0]);
 	});
 	var placeSearch, autocomplete;
 	var componentForm = {
