@@ -6,11 +6,11 @@
 		<div class='col-md-8 col-md-offset-2'>
 
 			<h1>Roteiros</h1>
-			
+
 			<p>Para criar um roteiro é necessário fazer parte de algum grupo. Caso você ainda não faća parte de um grupo, você pode criar o seu grupo na aba "Grupos".</p>
 
 			<div class='col-md-6'>
-				<h1>Meus Roteiros</h1>
+				<h2>Meus Roteiros</h2>
 				{% for agroup in grupos %}
 					<ul>
 					{% if agroup.group.trip_set.all %}
@@ -27,7 +27,7 @@
 
 
 			<div class='col-md-6'>
-				<h1>Roteiros Públicos</h1>
+				<h2>Roteiros Públicos</h2>
 
 				<ul>
 					{% for trip in publicos %}
