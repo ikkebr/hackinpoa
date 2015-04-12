@@ -5,11 +5,11 @@
     <div class='col-md-8 col-md-offset-2'>
         <h1>Roteiro de Viagem</h1>
         <h2>{{ object.name }}</h2>
-        <h4>Elaborado por {{ object.owner.userprofile.name }} para o Grupo {{ object.group.name }}</h4>
         <h6>De {{ object.start_at }}  até {{ object.end_at }} </h6>
+        <h4>Elaborado por <strong>{{ object.owner.userprofile.name }}</strong> para o Grupo <strong>{{ object.group.name }}</strong></h4>
         <p><strong>Origem:</strong> {{ object.start_point }}</p>
         <p><strong>Destino:</strong> {{ object.end_point }}</p>
-
+        <p><strong>Descrição:</strong></p>
         <p>{{ object.description }}</p>
 
     </div>
@@ -24,11 +24,13 @@
 
     <div class='row'>
         <div class='col-md-8 col-md-offset-2'>
-            <h4>Roteiro:</h4>
+            <h4><strong>Roteiro:</strong></h4>
             {% for cada in object.route_set.all %}
-            {{ cada.start_point }} até {{ cada.end_point }}
+                {{ cada.start_point }} até {{ cada.end_point }}
+                <br>
+                <br>
                 {% for waypoint in cada.waypoint_set.all %}
-                    way: {{ waypoint }}
+                    <strong>Parada</strong>: {{ waypoint.description }} <br>
                 {% endfor %}
             {% endfor %}
         </div>
