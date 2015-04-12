@@ -16,13 +16,14 @@
 				{% endfor %}
 			</ul>
 		{% else %}
-			Nenhum membro. Quer convidar alguém?
+			Nenhum membro. <br><br>
+			Quer participar do grupo? <br>
 		{% endif %}
 	
 	{% if not is_member %}
-		<a href='{% url "join_group" object.id %}'>Participar do Grupo</a>
+		<a class='btn btn-primary' href='{% url "join_group" object.id %}'>Participar do Grupo</a>
 	{% else %}
-		<a href='{% url "leave_group" object.id %}'>Abandonar Grupo</a>
+		<a class='btn btn-warning' href='{% url "leave_group" object.id %}'>Abandonar Grupo</a>
 	{% endif %}
 
 	</div>

@@ -57,6 +57,11 @@ class GroupList(LoginRequiredMixin, ListView):
 
         return Group.objects.filter(id__in=[each.group.id for each in Group_Access.objects.filter(user=self.request.user)])
 
+    def get_context_data(self, **kwargs):
+        context = super(GroupList, self).get_context_data(**kwargs)
+        context['public_groups'] = Group.objects.filter(is_public=True)
+
+        return context
 
 class GroupDetail(LoginRequiredMixin, DetailView):
     model = Group

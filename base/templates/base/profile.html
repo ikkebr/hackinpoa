@@ -17,11 +17,11 @@
 			{% endfor %}
 		</ul>
 		{% else %}
-			Você nao faz parte de nenhum grupo. <a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
+			Você nao faz parte de nenhum grupo.<br> <a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
 		{% endif %}
 
 
-
+	<br>
 	<p class="lead">Você pode fazer várias coisas legais:</p>
 	<ul>
 		<li><a href="{% url 'groups' %}">Gerenciar seus Grupos</a></li>
