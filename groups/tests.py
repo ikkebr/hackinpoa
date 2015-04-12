@@ -21,6 +21,8 @@ class GroupDetailTests(TestCase):
         self.grupo_b = Group.objects.create(id=2, is_public=0, name='baz', owner=self.user)
         self.grupo_b.save()
 
+        Group_Access.objects.all().delete()
+
         self.acesso_a = Group_Access.objects.create(group=self.grupo_a, user=self.user)
         self.acesso_a.save()
 
@@ -81,6 +83,8 @@ class GroupListTests(TestCase):
         grupo_b = Group.objects.create(is_public=0, name='foo', owner=self.user)
         grupo_b.save()
 
+        Group_Access.objects.all().delete()
+
         acesso_a = Group_Access.objects.create(group=grupo_a, user=self.user)
         acesso_a.save()
 
@@ -109,7 +113,7 @@ class GroupListTests(TestCase):
 
         response = self.c.get(reverse("groups"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual( len(response.context["object_list"]), 2)
+        self.assertEqual( len(response.context["object_list"]), 1)
 
 
 class GroupCreateTests(TestCase):

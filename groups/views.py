@@ -1,3 +1,4 @@
+#encoding: utf-8
 import datetime
 
 from django.shortcuts import get_object_or_404, redirect, render
@@ -78,3 +79,31 @@ class GroupDetail(LoginRequiredMixin, DetailView):
         context['query'] = self.request.GET.get('q', '')
         context['currpage'] = 'isall'
         return context
+
+
+
+class GroupAddMember(forms.ModelForm):
+    class Meta:
+        model = Group_Access
+        fields = ['user', 'is_admin']
+
+@login_required
+def add_group_members(request, pk):
+    group = get_object_or_404(Group, id=pk)
+    if not request.user.is_superuser:
+        access = get_object_or_404(Group_Access, group=group, user=request.user, is_admin=True)
+
+    
+    from django.forms.models import inlineformset_factory
+    GAFormset = inlineformset_factory(Group, Group_Access, fields=['user', 'is_admin'])
+
+    form = GAFormset(request.POST or None, instance=group)
+
+    if form.is_valid():
+        ga = form.save()
+        #ga.save()
+        messages.success(request, 'Usuário adicionado ao grupo com sucesso')
+
+        return redirect('group_details', pk)
+
+    return render(request, 'groups/group_add_member.html', {'form': form, 'pk': pk})

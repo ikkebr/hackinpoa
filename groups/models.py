@@ -23,6 +23,9 @@ class Group_Access(models.Model):
     user = models.ForeignKey(User)
     is_admin = models.BooleanField(default=False)
 
+    class Meta:
+    	unique_together = ['group', 'user']
+
 
 from django.db.models.signals import post_save
 
