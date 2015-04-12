@@ -45,7 +45,7 @@
 				    <li><a href="{% url 'django.contrib.auth.views.logout_then_login' %}">Sair</a></li>
 			    {% else %}
             <li class="active"><a href="{% url 'index' %}">Home</a></li>
-            <li class=""><a href="{% url 'index' %}">Como funciona</a></li>
+            <li class=""><a href="#como-funciona">Como funciona</a></li>
 				    <li><a href="{% url 'signup' %}">Cadastre-se</a></li>
 				    <li><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>
 			    {% endif %}
