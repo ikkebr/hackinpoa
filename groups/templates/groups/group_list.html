@@ -5,10 +5,11 @@
 <div class='row'>
 	<div class='col-md-8 col-md-offset-2'>
 
+		<h1>Grupos</h1>
 		<p>Você pode escolher um dos grupos já existentes ou criar seu próprio grupo. Ao entrar em um grupo você terá a općao de criar seus próprios roteiros de viagem.</p>
-		
+
 		<div class='col-md-6'>
-	<h1>Meus Grupos</h1>
+	<h2>Meus Grupos</h2>
 	 {% if object_list %}
 		<ul class="collection">
 			{% for group in object_list %}
@@ -23,7 +24,7 @@
 		</div>
 
 		<div class='col-md-6'>
-		<h1>Grupos Públicos</h1>
+		<h2>Grupos Públicos</h2>
 		{% if public_groups %}
 			<ul>
 				{% for group in public_groups %}

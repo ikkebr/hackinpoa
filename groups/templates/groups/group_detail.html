@@ -6,11 +6,11 @@
 	<div class='col-md-8 col-md-offset-2'>
 	<h1> {{ object.name }} </h1>
 
-	<p>Grupo {% if object.is_public %}Público{% else %}Privado{% endif %}</p>
-
+	<small>Grupo {% if object.is_public %}Público{% else %}Privado{% endif %}</small>
+	<p>Grupo criado por {{ object.owner.userprofile.name }}</p>
 
 	<div class="col-md-6">
-		<h3>Membros:</h3>
+		<h2>Membros:</h2>
 			{% if object.group_access_set.all %}
 				<ul>
 					{% for each in object.group_access_set.all %}
@@ -30,7 +30,7 @@
 	</div>
 
 	<div class="col-md-6">
-		<h3>Roteiros do Grupo</h3>
+		<h2>Roteiros do Grupo</h2>
 		{% if object.trip_set.all %}
 			<ul>
 				{% for each in object.trip_set.all %}
