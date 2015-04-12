@@ -1,8 +1,11 @@
-{% extends 'base/base.html' %}
+{% extends 'base/master.html' %}
 
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
+
+<div class='row'>
+	<div class='col-md-8 col-md-offset-2'>
 	<h1>Olá {{ user.userprofile.name }}!</h1>
 	
 
@@ -25,4 +28,6 @@
 		<li><a href="{% url 'edit_profile' %}">Completar seu Perfil</a></li>
 		<li><a href="">Comecar uma Viagem</a></li>
 	</ul>
+	</div>
+</div>
 {% endblock %}

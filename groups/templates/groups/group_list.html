@@ -1,7 +1,9 @@
-{% extends 'base/base.html' %}
+{% extends 'base/master.html' %}
 
 
 {% block content %}
+<div class='row'>
+	<div class='col-md-8 col-md-offset-2'>
 	<h1>Meus Grupos</h1>
 	 {% if object_list %}
 		<ul class="collection">
@@ -22,5 +24,6 @@
 			{% endif %}
 
 		<a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
-
+	</div>
+<div>
 {% endblock %}

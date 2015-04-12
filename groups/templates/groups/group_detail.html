@@ -1,7 +1,9 @@
-{% extends 'base/base.html' %}
+{% extends 'base/master.html' %}
 
 
 {% block content %}
+<div class='row'>
+	<div class='col-md-8 col-md-offset-2'>
 	<h1> {{ object.name }} </h1>
 
 	<p> {{ object.is_public }} </p>
@@ -16,4 +18,6 @@
 		{% else %}
 			Nenhum membro. Quer adicionar alguém?
 		{% endif %}
+	</div>
+</div>
 {% endblock %}
