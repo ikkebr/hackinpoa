@@ -49,7 +49,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    
+
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
@@ -60,11 +60,12 @@ INSTALLED_APPS = (
     'compressor',
     'groups',
     'users',
+    'trip',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    
+
 )
 
 SITE_ID = 1

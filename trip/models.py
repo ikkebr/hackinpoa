@@ -13,6 +13,11 @@ DIFFICULT = (
     ("hard", u"Difícil")
 )
 
+TRACK_TYPE = (
+    ("group", "Terra"),
+    ("asphalt", "Asfalto"),
+    ("pave", "Pavimento")
+)
 
 class Trip(models.Model):
     owner = models.ForeignKey(User, verbose_name=u"Dono")
@@ -28,20 +33,21 @@ class Trip(models.Model):
 
 
 class Route(models.Model):
-    start_point = models.CharField(u"Endereço de inicio", max_length==255)
+    start_point = models.CharField(u"Endereço de inicio", max_length=255)
     end_point = models.CharField(u"Endereço final", max_length=255)
     distance = models.FloatField(u"Distância")
     duration = models.TimeField(u"Duração")
     difficult = models.CharField(u"Dificuldade", choices=DIFFICULT,
-        default=DIFFICULT[0][0])
+        default=DIFFICULT[0][0], max_length=20)
     track_type = models.CharField(u"Tipo do pavimento", choices=TRACK_TYPE,
-        default=TRACK_TYPE[0][0])
+        default=TRACK_TYPE[0][0], max_length=20)
 
 
 class WayPoint(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
-    address = models.CharField(u"Endereço", null=True, blank=True)
+    address = models.CharField(u"Endereço", null=True, blank=True,
+        max_length=255)
 
 
 class Image(models.Model):
