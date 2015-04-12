@@ -3,6 +3,7 @@
 import json
 
 from django.http import HttpResponse
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
@@ -21,7 +22,7 @@ class CreateTrip(LoginRequiredMixin, CreateView):
 
     def post(self, request):
         form = self.form(data=request.POST)
-
+        from IPython import embed; embed()
         if form.is_valid():
             trip = form.save()
 
@@ -74,3 +75,6 @@ def create_waypoint(request):
 
     return HttpResponse("error", content_type="application/json")
 
+
+class ShowRoute(LoginRequiredMixin, DetailView):
+    pass

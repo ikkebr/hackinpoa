@@ -104,6 +104,7 @@ Mototrip.Create = {
                     route: $("#route").val(),
                     latitude: point.start_location.k,
                     longitude: point.start_location.D,
+                    description: point.start_address,
                     csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken").val(),
                 },
                 success: function(data){
@@ -157,8 +158,21 @@ Mototrip.Create = {
         }
 
         pub.init = function(){
-            priv.map = priv.initializeMap();
-            priv.setCurrentLocation();
+            if($("#map_canvas").length > 0){
+                priv.map = priv.initializeMap();
+                priv.setCurrentLocation();
+
+                if(window.location.pathname.indexOf("show") < 0){
+                    google.maps.event.addListener(priv.map, 'click', function(data){
+                        var current_point = new google.maps.LatLng(
+                            data.latLng.k, data.latLng.D
+                        )
+                        priv.points.push({location: current_point});
+                        priv.addWayPoint(current_point);
+                    });
+                }
+            }
+
 
             $("#init-route").submit(function(event){
                 event.preventDefault();
@@ -166,14 +180,6 @@ Mototrip.Create = {
                 var data = form.serializeArray();
 
                 priv.addInitialRoute(data);
-            });
-
-            google.maps.event.addListener(priv.map, 'click', function(data){
-                var current_point = new google.maps.LatLng(
-                    data.latLng.k, data.latLng.D
-                )
-                priv.points.push({location: current_point});
-                priv.addWayPoint(current_point);
             });
 
             // google.maps.event.addListener(priv.directionsDisplay, 'directions_changed', function(){
