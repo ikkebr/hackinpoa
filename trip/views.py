@@ -12,3 +12,8 @@ class CreateTrip(LoginRequiredMixin, CreateView):
 
     model = Trip
     template_name = "trip/create.html"
+
+class CreateTrip_(LoginRequiredMixin, CreateView):
+
+    model = Trip
+    template_name = "trip/_create.html"
