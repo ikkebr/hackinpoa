@@ -41,7 +41,7 @@
 		{% if object.trip_set.all %}
 			<ul>
 				{% for each in object.trip_set.all %}
-					<li><a href='{% url "trip:create-route" each.id %}'>{{ each.name }}</a></li>
+					<li><a href='{% url "trip:show" each.id %}'>{{ each.name }}</a></li>
 				{% endfor %}
 			</ul>
 		{% else %}
