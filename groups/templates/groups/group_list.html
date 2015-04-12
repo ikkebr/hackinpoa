@@ -18,11 +18,15 @@
 	{% endif %}
 
 		<h1>Grupos Públicos</h1>
-		<ul>
-			{% for group in public_groups %}
-				<li class="collection-item"><i class="mdi-social-group"></i> <a href='{{ group.get_absolute_url }}'>{{ group.name }} </a></li>
-			{% endfor %}
-		</ul>
+		{% if public_groups %}
+			<ul>
+				{% for group in public_groups %}
+					<li class="collection-item"><i class="mdi-social-group"></i> <a href='{{ group.get_absolute_url }}'>{{ group.name }} </a></li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>Não existem grupos públicos disponíveis no momento.</p>
+		{% endif %}
 
 		<a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
 	</div>
