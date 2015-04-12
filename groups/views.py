@@ -144,5 +144,8 @@ def add_group_members(request, pk):
 
 def trip_list(request):
     grupos = Group_Access.objects.filter(user=request.user)
+    from trip.models import Trip
 
-    return render(request, 'groups/trip_list.html', { 'grupos': grupos })
+    publicos = Trip.objects.filter(is_public=True)
+
+    return render(request, 'groups/trip_list.html', { 'grupos': grupos, 'publicos': publicos  })
