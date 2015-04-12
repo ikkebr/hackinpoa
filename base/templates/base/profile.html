@@ -3,6 +3,21 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-	<h1>Olá {{ user.username }}!</h1>
-	<p class="lead">Você está logado.</p>	
+	<h1>Olá {{ user.userprofile.name }}!</h1>
+	
+
+	<h3>Meus Grupos</h3>
+		<ul class="collection">
+			{% for agroup in user.group_access_set.all %}
+				<li class="collection-item"><i class="mdi-social-group"></i> <a href='{{ agroup.group.get_absolute_url }}'>{{ agroup.group.name }} </a></li>
+			{% endfor %}
+		</ul>
+
+
+	<p class="lead">Você pode fazer várias coisas legais:</p>
+	<ul>
+		<li><a href="{% url 'groups' %}">Gerenciar seus Grupos</a></li>
+		<li><a href="{% url 'edit_profile' %}">Completar seu Perfil</a></li>
+		<li><a href="">Comecar uma Viagem</a></li>
+	</ul>
 {% endblock %}

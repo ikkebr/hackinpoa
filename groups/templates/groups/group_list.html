@@ -14,12 +14,13 @@
 				<div class="col s12 m12">
 					<div class="card-panel blue">
 						<span class="white-text">
-							Você ainda não está participando de nenhum grupo. <br>
-							<a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
+							Você ainda não está participando de nenhum grupo.
 						</span>
 					</div>
 				</div>
 			</div>
 			{% endif %}
+
+		<a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
 
 {% endblock %}
