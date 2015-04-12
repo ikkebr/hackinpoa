@@ -50,11 +50,25 @@ Mototrip.Create = {
             var legs = data.routes[0].legs;
             var latitude = current_point.k.toPrecision(5);
             var longitude = current_point.D.toPrecision(5);
+            var table = $("#points");
 
             for(i=0; i<=legs.length - 1; i++){
                 var leg = legs[i];
                 var start_latitude = leg.start_location.k.toPrecision(5);
-                var start_longitude = legs.start_location.D.toPrecision(5);
+                var start_longitude = leg.start_location.D.toPrecision(5);
+
+                if(latitude == start_latitude && longitude == start_longitude){
+                    table.find("tbody").append("<tr><td>" + leg.start_address + "</td><td>" + leg.distance.text + "</td></tr>");
+                }
+            }
+        }
+
+        priv.setFormData = function(data){
+            var legs = data.routes[0].legs;
+            var distance;
+            var duration;
+
+            for(i=0; i<=legs.length - 1; i++){
 
             }
         }
@@ -66,11 +80,12 @@ Mototrip.Create = {
                 travelMode: google.maps.TravelMode.DRIVING,
                 waypoints: waypoints
             }, function(data, status){
-                if(!initial){
+                if(initial == false){
                     priv.addPointOnTable(data, current_point);
                 }
                 priv.directionsDisplay.setMap(priv.map);
                 priv.directionsDisplay.setDirections(data);
+                priv.setFormData(data);
             });
         }
 
@@ -109,20 +124,20 @@ Mototrip.Create = {
                 var form = $(this);
                 var data = form.serializeArray();
 
-                priv.addInitialRoute(data, map);
+                priv.addInitialRoute(data);
             });
 
             google.maps.event.addListener(priv.map, 'click', function(data){
-                var current_point = {location: new google.maps.LatLng(
+                var current_point = new google.maps.LatLng(
                     data.latLng.k, data.latLng.D
-                )}
-                priv.points.push(current_point);
+                )
+                priv.points.push({location: current_point});
                 priv.addWayPoint(current_point);
             });
 
-            google.maps.event.addListener(priv.directionsDisplay, 'directions_changed', function(){
+            // google.maps.event.addListener(priv.directionsDisplay, 'directions_changed', function(){
 
-            });
+            // });
         }
 
         return pub;

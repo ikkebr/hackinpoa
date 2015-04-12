@@ -16,23 +16,29 @@ DIFFICULT = (
 TRACK_TYPE = (
     ("group", "Terra"),
     ("asphalt", "Asfalto"),
-    ("pave", "<Pavimento></Pavimento>")
+    ("pave", "Pavimento")
 )
+
 
 class Trip(models.Model):
     owner = models.ForeignKey(User, verbose_name=u"Dono")
     group = models.ForeignKey(Group, verbose_name=U"Grupo")
 
     name = models.CharField(u"name", max_length=255)
-    description = models.TextField(u"descrição")
-    start_at = models.DateField(u"Data de inicio")
-    end_at = models.DateField(u"Date Final")
+    description = models.TextField(u"descrição", null=True, blank=True)
+    start_at = models.DateField(u"Data de inicio", null=True, blank=True)
+    end_at = models.DateField(u"Date Final", null=True, blank=True)
     created_at = models.DateTimeField("Data de criação", auto_now=True)
     is_public = models.BooleanField(u"É público", default=True)
-
+    start_point = models.CharField(u"Endereço de inicio", max_length=255,
+        null=True)
+    end_point = models.CharField(u"Endereço final", max_length=255,
+        null=True)
 
 
 class Route(models.Model):
+    trip = models.ForeignKey(Trip, null=True)
+
     start_point = models.CharField(u"Endereço de inicio", max_length=255)
     end_point = models.CharField(u"Endereço final", max_length=255)
     distance = models.FloatField(u"Distância")
