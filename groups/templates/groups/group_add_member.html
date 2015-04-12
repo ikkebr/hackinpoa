@@ -1,0 +1,17 @@
+{% extends "base/master.html" %}
+
+
+{% block content %}
+<div class='row'>
+	<div class='col-md-8 col-md-offset-2'>
+		<form method="post" action="{% url 'group_add_members' pk %}">
+			<table>
+				{{ form }}
+			</table>
+			{% csrf_token %}
+			<button class="btn btn-primary">Cadastrar</button>
+
+		</form>
+	</div>
+</div>
+{% endblock %}

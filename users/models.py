@@ -3,18 +3,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-MOTO_CATEGORIES = (
-	('Street', 'street'),
-	('Naked', 'naked'),
-	('Custom', 'custom'),
-	('Crossover', 'crossover'),
-	('Sport', 'sport'),
-	('Touring', 'touring'),
-	('Trail', 'trail'),
-	('Scooter', 'scooter'),
-)
+MOTO_CATEGORIES = list(sorted([
+	('street', 'Street'),
+	('naked', 'Naked'),
+	('custom', 'Custom'),
+	('crossover', 'Crossover'),
+	('sport', 'Sport'),
+	('touring', 'Touring'),
+	('trail', 'Trail'),
+	('scooter', 'Scooter'),
+]))
 
-UF_CHOICES = (
+UF_CHOICES = list(sorted([
     ('AC', 'Acre'), 
     ('AL', 'Alagoas'),
     ('AP', 'Amapá'),
@@ -41,11 +41,11 @@ UF_CHOICES = (
     ('SE', 'Sergipe'),
     ('SP', 'São Paulo'),
     ('TO', 'Tocantins')
-)
+]))
 
-SEX_CHOICES = (('Male', 'M'),
-				('Female', 'F'),
-				('Other', 'O'))
+SEX_CHOICES = (('M', 'Masculino'),
+				('F', 'Feminino'),
+				('O', 'Outro'))
 
 class UserProfile(models.Model):
 	 user = models.OneToOneField(User)

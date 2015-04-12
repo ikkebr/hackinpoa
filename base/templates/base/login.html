@@ -33,26 +33,30 @@
   			{% endif %}
   			<form method="post" class="form-login"  action="{% url 'django.contrib.auth.views.login' %}">
   				{% csrf_token %}
-  				<h2 class="form-login-heading text-center">COMECE SUA VIAGEM</h2>
-  				<div class="form-group">
-  					<label for="id_username" class="sr-only">Username</label>
-  					<input type="email" id="id_username" name="username" class="form-control input-lg" placeholder="Username" required autofocus>
-  				</div>
-  				<div class="form-group">
-  					<label for="id_password" class="sr-only">Password</label>
-  					<input type="password" id="id_password" name="password" class="form-control input-lg" placeholder="Password" required>
-  				</div>
-  				<button class="btn btn-lg btn-primary btn-block" type="submit">Confirmar</button>
-  				<input type="hidden" name="next" value="{{ next }}" />
-
   				{% load socialaccount %}
-  				{% providers_media_js %}
-  				<a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
+          {% providers_media_js %}
+          
+          <h2 class="form-login-heading text-center">COMECE SUA VIAGEM</h2>
+          <ul class="social-logins">
+            <li><a title="Facebook" class="btn btn-lg btn-social facebook" href="{% provider_login_url "facebook" method="js_sdk" %}"><i class="fa fa-facebook"></i> Facebook</a></li>
+            <li><a title="Twitter" class="btn btn-lg btn-social twitter" href="/accounts/twitter/login/?process=login"><i class="fa fa-twitter"></i> Twitter</a></li>
+            <li><a title="Google" class="btn btn-lg btn-social google" href="/accounts/google/login/?process=login"><i class="fa fa-google-plus"></i> Google</a></li>
+          </ul>
 
-  				<ul class="socialaccount_providers">
-  					{% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  				</ul>
+          <h2 class="form-login-heading text-center">CONTA ROADTRIP</h2>
+  				<div class="form-group">
+  					<label for="id_username" class="sr-only">Usuário</label>
+  					<input type="text" id="id_username" name="username" class="form-control input-lg" placeholder="Usuário" required autofocus>
+  				</div>
+  				<div class="form-group">
+  					<label for="id_password" class="sr-only">Senha</label>
+  					<input type="password" id="id_password" name="password" class="form-control input-lg" placeholder="Senha" required>
+  				</div>
+  				
+
   				{% include "socialaccount/snippets/login_extra.html" %}
+  				<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+  				<input type="hidden" name="next" value="{{ next }}" />
   			</form>
   		</div>
   	</div>

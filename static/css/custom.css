@@ -7,6 +7,12 @@ h2 { font-size: 25px; font-weight: bold; color: #2B3C50; }
 /* LOGIN */
 .container.login .box-login { max-width: 450px; padding: 15px; margin: 0 auto; text-align: center; }
 .container.login .box-login .form-login { background: #FFF; padding:25px 50px; margin-top: 30px;}
+.container.login .box-login .form-login .social-logins { width: 100%; margin: 0; padding: 0; }
+.container.login .box-login .form-login .social-logins li { margin: 5px 0;}
+.container.login .box-login .form-login .social-logins li .btn-social { width: 100%; color: #FFF; }
+.container.login .box-login .form-login .social-logins li .btn-social.facebook { background: #3b579d; }
+.container.login .box-login .form-login .social-logins li .btn-social.twitter { background: #56d6fe; }
+.container.login .box-login .form-login .social-logins li .btn-social.google { background: #df4a32; }
 
 /* HOME */
 .row.home { padding: 180px 0 ;  background: url(../img/bg.jpg) no-repeat top; background-size: cover; }
@@ -15,3 +21,13 @@ h2 { font-size: 25px; font-weight: bold; color: #2B3C50; }
 .como-funciona .row { background: #fff;}
 .como-funciona .row i.fa { width: 60px; height: 60px; border-radius: 60px; background: #2b3e50; padding-top: 7px; padding-left: 2px; }
 .como-funciona .row .box { width: 50%; color: #2B3C50; }
+
+/* System */
+body.system { background: #FFF; color: #2b3e50;}
+.system .row { padding-top: 80px; }
+.system .brand-small { height: 60px; }
+.system .navbar.navbar-default{ padding: 10px; background-color: rgb(78,93,108); }
+.system .row .box-form { max-width: 500px; margin: 0 auto; text-align: center; }
+.system .form-horizontal .form-group .control-label { color: #2B3C50; font-size: 16px; font-weight: bold;}
+.system .form-horizontal .form-group > div { padding-top: 8px; }
+.system .form-horizontal .form-group .radio-inline label { font-size: 14px; }
