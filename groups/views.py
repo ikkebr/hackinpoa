@@ -139,3 +139,10 @@ def add_group_members(request, pk):
         return redirect('group_details', pk)
 
     return render(request, 'groups/group_add_member.html', {'form': form, 'pk': pk})
+
+
+
+def trip_list(request):
+    grupos = Group_Access.objects.filter(user=request.user)
+
+    return render(request, 'groups/trip_list.html', { 'grupos': grupos })
