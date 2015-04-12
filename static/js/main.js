@@ -12,7 +12,7 @@ Mototrip.Create = {
         priv.body = $("body");
         priv.directionService = new google.maps.DirectionsService();
         priv.directionsDisplay = new google.maps.DirectionsRenderer({
-            draggable: true
+            draggable: false
         });
 
         priv.setCurrentLocation = function () {
@@ -48,9 +48,9 @@ Mototrip.Create = {
 
         priv.addPointOnTable = function(data, current_point){
             var legs = data.routes[0].legs;
-            var latitude = current_point.k.toPrecision(5);
-            var longitude = current_point.D.toPrecision(5);
-            var table = $("#points");
+            var latitude = current_point.k.toPrecision(4);
+            var longitude = current_point.D.toPrecision(4);
+            var table = $("#points")
 
             for(i=0; i<=legs.length - 1; i++){
                 var leg = legs[i];
@@ -62,6 +62,18 @@ Mototrip.Create = {
                     table.find("tbody").append("<tr><td>" + leg.start_address + "</td><td>" + leg.distance.text + "</td></tr>");
                 }
             }
+        }
+
+        priv.secondsToTime = function(secs){
+            var hours = Math.floor(secs / (60 * 60));
+
+            var divisor_for_minutes = secs % (60 * 60);
+            var minutes = Math.floor(divisor_for_minutes / 60);
+
+            var divisor_for_seconds = divisor_for_minutes % 60;
+            var seconds = Math.ceil(divisor_for_seconds);
+
+            return hours + ":" + minutes;
         }
 
         priv.setFormData = function(data){
@@ -76,8 +88,11 @@ Mototrip.Create = {
                 duration += leg.duration.value;
             }
 
-            distance = (distance / 1000).toPrecision(2);
-            duration = "00:" + (duration / 60).toPrecision(2);
+            distance = distance / 1000;
+            duration = priv.secondsToTime(duration);
+
+            $(".distance_label").html(String(distance).split(".")[0]);
+            $(".hour_label").html(duration);
 
             $.ajax({
                 url: window.location.pathname,
@@ -121,9 +136,12 @@ Mototrip.Create = {
                 waypoints: waypoints
             }, function(data, status){
                 if(initial == false){
-                    priv.addPointOnTable(data, current_point);
+                    try{
+                        priv.addPointOnTable(data, current_point);
+                    }catch(e){
+                        console.log(e);
+                    }
                 }else{
-                    debugger;
                     priv.setFormData(data);
                 }
 
@@ -158,9 +176,9 @@ Mototrip.Create = {
         pub.init = function(){
             if($("#map_canvas").length > 0){
                 priv.map = priv.initializeMap();
-                priv.setCurrentLocation();
 
                 if(window.location.pathname.indexOf("show") < 0){
+                    priv.setCurrentLocation();
                     google.maps.event.addListener(priv.map, 'click', function(data){
                         var current_point = new google.maps.LatLng(
                             data.latLng.k, data.latLng.D
@@ -168,6 +186,19 @@ Mototrip.Create = {
                         priv.points.push({location: current_point});
                         priv.addWayPoint(current_point);
                     });
+                }else{
+                    for(i=0; i <= Directions.waypoints.length - 1; i++){
+                        var point = Directions.waypoints[i];
+                        var latitude = point.latitude.replace(",", ".");
+                        var longitude = point.longitude.replace(",", ".");
+
+                        priv.points.push({
+                            location: new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude))
+                        });
+                    }
+
+                    priv.setPoint(Directions.start_point, Directions.end_point, false,
+                        priv.points);
                 }
             }
 
@@ -178,6 +209,7 @@ Mototrip.Create = {
                 var origin = form.find("input[name='origin']").val();
                 var destination = form.find("input[name='destination']").val();
 
+                form.find("button").prop("disabled", true);
                 priv.addInitialRoute(origin, destination);
             });
 

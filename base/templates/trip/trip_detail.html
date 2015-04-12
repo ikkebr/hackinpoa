@@ -1,0 +1,89 @@
+{% extends "base/master.html" %}
+
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block description %}{{ object.description }}{% endblock %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-md-6 col-md-offset-2'>
+        <h1>Roteiro de Viagem</h1>
+        <h2>{{ object.name }}</h2>
+        <h6>De {{ object.start_at }}  até {{ object.end_at }} </h6>
+        <h4>Elaborado por <strong>{{ object.owner.userprofile.name }}</strong> para o Grupo <strong><a href="{% url 'group_details' object.group.id %}">{{ object.group.name }}</a></strong></h4>
+        <p><strong>Origem:</strong> {{ object.start_point }}</p>
+        <p><strong>Destino:</strong> {{ object.end_point }}</p>
+        <p><strong>Descrição:</strong></p>
+        <p>{{ object.description }}</p>
+    </div>
+
+    <div class='col-md-2'>
+        <br><br><br>
+        <div class="g-plusone" data-annotation="inline" data-width="120"></div><br>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="pt" data-size="medium" data-hashtags="ufsm">Tweetar</a><br>
+        <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+        <div id="fb-root"></div>
+
+    </div>
+</div>
+
+    <div class="row">
+        <div class='col-md-8 col-md-offset-2'>
+            <div id="map_canvas" style="width: 100%; height: 500px;"></div>
+        </div>
+    </div>
+
+
+    <div class='row'>
+        <div class='col-md-8 col-md-offset-2'>
+            <h4><strong>Roteiro:</strong></h4>
+            {% for cada in object.route_set.all %}
+                {{ cada.start_point }} até {{ cada.end_point }}
+                <br>
+                <br>
+                {% for waypoint in cada.waypoint_set.all %}
+                    <strong>Parada</strong>: {{ waypoint.description }} <br>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        var Directions = {
+            start_point: "{{ object.start_point }}",
+            end_point: "{{ object.end_point }}",
+            waypoints:[
+                {% for point in object.route_set.first.waypoint_set.all %}
+                    {latitude: "{{ point.latitude }}", longitude: "{{ point.longitude}}"},
+                {% endfor %}
+            ]
+        }
+    </script>
+
+
+
+{% endblock %}
+
+
+
+
+{% block extrajs %}
+
+
+
+    <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=268350933326804";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<script type="text/javascript" async defer src="https://apis.google.com/js/platform.js?publisherid=105592117570270546246"></script>
+
+
+{% endblock %}

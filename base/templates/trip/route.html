@@ -62,8 +62,8 @@
 
         <hr>
 
-        <h2>Distância Total: 123 KM</h2>
-        <h2>Tempo de Viagem: 123 horas</h2>
+        <h2>Distância Total: <span class="distance_label">0</span> km</h2>
+        <h2>Tempo de Viagem: <span class="hour_label">0</span> horas</h2>
 
         <hr>
 
@@ -80,9 +80,8 @@
         <table class='table table-bordered foo' id="points">
             <tbody></tbody>
         </table>
+        <a href="{% url 'trip:show' trip.id %}" class="btn btn-primary">Avançar</a>
     </div>
-
-</div>
 </div>
 {% endblock %}
 {% block extrajs %}
