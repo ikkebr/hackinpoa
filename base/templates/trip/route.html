@@ -6,7 +6,8 @@
 
 
 <div class="row">
-
+    <div class='col-md-8 col-md-offset-2'>
+    <h1> {{ trip.name }} </h1>
     <form id="init-route" class='form-horizontal' method="post" action=".">
         {% csrf_token %}
         <div class="form-group form-group-lg">
@@ -55,14 +56,14 @@
 
             <div class="form-group form-group-lg">
                 <div class='col-md-8 col-md-offset-2'>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
 
         </div>
     </form>
 </div>
-<div class="row">
+<div class="row" style='padding-top: 10px;'>
     <div id="map_canvas" style="width:100%; height:500px"></div>
     <table id="points" class="table">
         <thead>
@@ -72,6 +73,50 @@
         <tbody>
         </tbody>
     </table>
+
+    <div class='col-md-8 col-md-offset-2'>
+
+        <hr>
+
+        <h2>Distância Total: 123 KM</h2>
+        <h2>Tempo de Viagem: 123 horas</h2>
+
+        <hr>
+
+        <h3>Paradas Programadas:</h3>
+
+        <style>
+            .foo tr {
+                border-top: 3px solid #ccc;
+                padding: 5px;
+                font-size: 12pt;
+            }
+        </style>
+
+        <table class='table table-bordered foo'>
+            <tr>
+                <td>Parada A</td>
+                <td>100km</td>
+            </tr>
+
+            <tr>
+                <td>Parada B</td>
+                <td>127km</td>
+            </tr>
+
+            <tr>
+                <td>Parada C</td>
+                <td>140km</td>
+            </tr>
+
+            <tr>
+               <td>Parada D</td>
+               <td>200km</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
 </div>
 {% endblock %}
 {% block extrajs %}
