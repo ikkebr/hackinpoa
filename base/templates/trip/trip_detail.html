@@ -5,6 +5,7 @@
     <div class='col-md-8 col-md-offset-2'>
         <h1>Roteiro de Viagem</h1>
         <h2>{{ object.name }}</h2>
+        <h4>Elaborado por {{ object.owner.userprofile.name }} para o Grupo {{ object.group.name }}</h4>
         <h6>De {{ object.start_at }}  até {{ object.end_at }} </h6>
         <p><strong>Origem:</strong> {{ object.start_point }}</p>
         <p><strong>Destino:</strong> {{ object.end_point }}</p>
