@@ -14,6 +14,7 @@ class CreateTrip(LoginRequiredMixin, CreateView):
 
     model = Trip
     template_name = "trip/create.html"
+    form = TripForm
 
 
 class CreateRoute(LoginRequiredMixin, CreateView):
