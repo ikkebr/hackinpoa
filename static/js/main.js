@@ -86,7 +86,7 @@ Mototrip.Create = {
                     trip: trip,
                     distance: distance,
                     duration: duration,
-                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken").val(),
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
                     start_point: priv.getInitialRoute()[0],
                     end_point: priv.getInitialRoute()[1],
                 },
@@ -105,7 +105,7 @@ Mototrip.Create = {
                     latitude: point.start_location.k,
                     longitude: point.start_location.D,
                     description: point.start_address,
-                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken").val(),
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
                 },
                 success: function(data){
                     console.log(data);
