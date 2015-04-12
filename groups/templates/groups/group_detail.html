@@ -1,5 +1,9 @@
 {% extends 'base/master.html' %}
 
+{% block title %}{{ object.name }}{% endblock %}
+
+{%block description %}Grupo {{ object.name }} - Grupo criado por {{ object.owner.userprofile.name }}{% endblock %}
+
 
 {% block content %}
 <div class='row'>
