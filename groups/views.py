@@ -108,6 +108,11 @@ def join_group(request, pk):
 def leave_group(request, pk):
     group = get_object_or_404(Group, id=pk)
     access, created = Group_Access.objects.get_or_create(group=group, user=request.user)
+
+    if access.is_admin:
+        messages.warning(request, 'Você não pode sair do grupo.')
+        return redirect(group)
+
     access.delete()
 
     messages.success(request, 'Você saiu do grupo.')
