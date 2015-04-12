@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-MOTO_CATEGORIES = list(sorted(
+MOTO_CATEGORIES = list(sorted([
 	('street', 'Street'),
 	('naked', 'Naked'),
 	('custom', 'Custom'),
@@ -12,9 +12,9 @@ MOTO_CATEGORIES = list(sorted(
 	('touring', 'Touring'),
 	('trail', 'Trail'),
 	('scooter', 'Scooter'),
-))
+]))
 
-UF_CHOICES = list(sorted(
+UF_CHOICES = list(sorted([
     ('AC', 'Acre'), 
     ('AL', 'Alagoas'),
     ('AP', 'Amapá'),
@@ -41,7 +41,7 @@ UF_CHOICES = list(sorted(
     ('SE', 'Sergipe'),
     ('SP', 'São Paulo'),
     ('TO', 'Tocantins')
-))
+]))
 
 SEX_CHOICES = (('M', 'Masculino'),
 				('F', 'Feminino'),
