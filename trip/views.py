@@ -35,7 +35,7 @@ class CreateTrip(LoginRequiredMixin, CreateView):
 class CreateRoute(LoginRequiredMixin, CreateView):
 
     model = Route
-    template_name = "trip/_route.html"
+    template_name = "trip/route.html"
     form = RouteForm
 
     def get_context_data(self, *args, **kwargs):
