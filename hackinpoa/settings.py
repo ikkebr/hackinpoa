@@ -134,16 +134,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
     'django.contrib.auth.context_processors.auth',
-<<<<<<< HEAD
     'django.contrib.messages.context_processors.messages',
-=======
     'base.context_processors.get_services_tokens'
->>>>>>> trips
 )
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
