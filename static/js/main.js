@@ -113,6 +113,13 @@ Mototrip.Create = {
             });
         }
 
+        priv.filterFloat = function (value) {
+            if(/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/
+              .test(value))
+              return Number(value);
+          return NaN;
+        }
+
         priv.setPoint = function(origin, destination, initial, waypoints, current_point){
             priv.directionService.route({
                 origin: origin,
@@ -121,9 +128,12 @@ Mototrip.Create = {
                 waypoints: waypoints
             }, function(data, status){
                 if(initial == false){
-                    priv.addPointOnTable(data, current_point);
+                    try{
+                        priv.addPointOnTable(data, current_point);
+                    }catch(e){
+                        console.log(e);
+                    }
                 }else{
-                    debugger;
                     priv.setFormData(data);
                 }
 
@@ -158,9 +168,9 @@ Mototrip.Create = {
         pub.init = function(){
             if($("#map_canvas").length > 0){
                 priv.map = priv.initializeMap();
-                priv.setCurrentLocation();
 
                 if(window.location.pathname.indexOf("show") < 0){
+                    priv.setCurrentLocation();
                     google.maps.event.addListener(priv.map, 'click', function(data){
                         var current_point = new google.maps.LatLng(
                             data.latLng.k, data.latLng.D
@@ -168,6 +178,19 @@ Mototrip.Create = {
                         priv.points.push({location: current_point});
                         priv.addWayPoint(current_point);
                     });
+                }else{
+                    for(i=0; i <= Directions.waypoints.length - 1; i++){
+                        var point = Directions.waypoints[i];
+                        var latitude = point.latitude.replace(",", ".");
+                        var longitude = point.longitude.replace(",", ".");
+
+                        priv.points.push({
+                            location: new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude))
+                        });
+                    }
+
+                    priv.setPoint(Directions.start_point, Directions.end_point, false,
+                        priv.points);
                 }
             }
 

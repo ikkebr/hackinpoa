@@ -76,4 +76,10 @@ def create_waypoint(request):
 
 
 class ShowRoute(LoginRequiredMixin, DetailView):
-    pass
+
+    model = Trip
+
+    def get_object(self, **kwargs):
+        return self.model.objects.select_related("owner",
+            "group").prefetch_related("route_set", "route_set__waypoint_set").get(
+            pk=self.kwargs["pk"])
