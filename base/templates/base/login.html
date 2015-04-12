@@ -26,7 +26,7 @@
   <body>
   	<div class="container login">
   		<div class="box-login">
-  			<h1><img src="{% static 'img/mototrip_brand.png' %}"></h1>
+  			<h1><a href='{% url "index" %}'><img src="{% static 'img/mototrip_brand.png' %}"></a></h1>
 
   			{% if form.errors %}
   			<p>Seu usuário ou senha não combinam. Tente novamente</p>
