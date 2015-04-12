@@ -14,6 +14,8 @@
         <h4>Elaborado por <strong>{{ object.owner.userprofile.name }}</strong> para o Grupo <strong><a href="{% url 'group_details' object.group.id %}">{{ object.group.name }}</a></strong></h4>
         <p><strong>Origem:</strong> {{ object.start_point }}</p>
         <p><strong>Destino:</strong> {{ object.end_point }}</p>
+        <p><strong>Tempo estimando:</strong> {{ object.route_set.first.duration }}h</p>
+        <p><strong>Distância estimanda:</strong> {{ object.route_set.first.distance|floatformat:"0" }}km</p>
         <p><strong>Descrição:</strong></p>
         <p>{{ object.description }}</p>
     </div>

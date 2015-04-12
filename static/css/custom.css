@@ -33,3 +33,6 @@ body.system { background: #FFF; color: #2b3e50;}
 .system .form-horizontal .form-group .radio-inline label { font-size: 14px; }
 
 .system #init-route {padding: 25px;}
+
+.navbar.navbar-default { margin-bottom: 0; }
+.container-fluid { padding-bottom: 40px; }
