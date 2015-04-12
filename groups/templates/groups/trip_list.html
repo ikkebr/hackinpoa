@@ -11,6 +11,7 @@
 
 			<div class='col-md-6'>
 				<h2>Meus Roteiros</h2>
+				{% if conta %}
 				{% for agroup in grupos %}
 					<ul>
 					{% if agroup.group.trip_set.all %}
@@ -23,17 +24,24 @@
 					{% endif %}
 					</ul>
 				{% endfor %}
+				{% else %}
+					<p>Você não possui nenhum roteiro. Tente entrar um <a href='{% url 'groups' %}'>Grupo</a> para iniciar.</p>
+				{% endif %}
 			</div>
 
 
 			<div class='col-md-6'>
 				<h2>Roteiros Públicos</h2>
 
+				{% if publicos %}
 				<ul>
 					{% for trip in publicos %}
 							<li><a href="#">{{ trip.name }}</a></li>
 					{% endfor %}
 				</ul>
+				{% else %}
+					<p>Parece que não existe nenhum roteiro público. Que tal criar um?</p>
+				{% endif %}
 			</div>
 
 

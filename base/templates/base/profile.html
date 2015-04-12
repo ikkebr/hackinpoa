@@ -8,7 +8,7 @@
 	<div class='col-md-8 col-md-offset-2'>
 	<h1>Olá {{ user.userprofile.name }}!</h1>
 	
-
+	<div class='col-md-4'>
 	<h3>Meus Grupos</h3>
 		{% if user.group_access_set.all %}
 		<ul class="collection">
@@ -19,15 +19,17 @@
 		{% else %}
 			Você nao faz parte de nenhum grupo.<br> <a href="{% url 'group_create' %}" class="teal-text accent-1">Clique aqui para criar um grupo.</a>
 		{% endif %}
+	</div>
 
+	<div class='col-md-8'>
+		<p class="lead">Você pode fazer várias coisas legais:</p>
+		<ul>
+			<li><a href="{% url 'groups' %}">Participar de um Grupo</a></li>
+			<li><a href="{% url 'edit_profile' %}">Completar seu Perfil</a></li>
+			<li><a href="{% url 'trip_list' %}">Comecar uma Viagem</a></li>
+		</ul>
+	</div>
 
-	<br>
-	<p class="lead">Você pode fazer várias coisas legais:</p>
-	<ul>
-		<li><a href="{% url 'groups' %}">Participar de um Grupo</a></li>
-		<li><a href="{% url 'edit_profile' %}">Completar seu Perfil</a></li>
-		<li><a href="{% url 'trip_list' %}">Comecar uma Viagem</a></li>
-	</ul>
 	</div>
 </div>
 {% endblock %}
