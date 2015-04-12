@@ -64,6 +64,18 @@ Mototrip.Create = {
             }
         }
 
+        priv.secondsToTime = function(secs){
+            var hours = Math.floor(secs / (60 * 60));
+
+            var divisor_for_minutes = secs % (60 * 60);
+            var minutes = Math.floor(divisor_for_minutes / 60);
+
+            var divisor_for_seconds = divisor_for_minutes % 60;
+            var seconds = Math.ceil(divisor_for_seconds);
+
+            return hours + ":" + minutes;
+        }
+
         priv.setFormData = function(data){
             var legs = data.routes[0].legs;
             var trip = $("#trip").attr("value");
@@ -77,7 +89,7 @@ Mototrip.Create = {
             }
 
             distance = (distance / 1000).toPrecision(2);
-            duration = "00:" + (duration / 60).toPrecision(2);
+            duration = priv.secondsToTime(duration);
 
             $.ajax({
                 url: window.location.pathname,
