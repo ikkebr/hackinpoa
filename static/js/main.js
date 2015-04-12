@@ -123,6 +123,7 @@ Mototrip.Create = {
                 if(initial == false){
                     priv.addPointOnTable(data, current_point);
                 }else{
+                    debugger;
                     priv.setFormData(data);
                 }
 
@@ -149,10 +150,7 @@ Mototrip.Create = {
             priv.setPoint(origin, destination, false, waypoints, current_point)
         }
 
-        priv.addInitialRoute = function(routePoints){
-            var origin = routePoints[0].value;
-            var destination = routePoints[1].value
-
+        priv.addInitialRoute = function(origin, destination){
             priv.setInitialRoute(origin, destination, true);
             priv.setPoint(origin, destination)
         }
@@ -177,9 +175,10 @@ Mototrip.Create = {
             $("#init-route").submit(function(event){
                 event.preventDefault();
                 var form = $(this);
-                var data = form.serializeArray();
+                var origin = form.find("input[name='origin']").val();
+                var destination = form.find("input[name='destination']").val();
 
-                priv.addInitialRoute(data);
+                priv.addInitialRoute(origin, destination);
             });
 
             // google.maps.event.addListener(priv.directionsDisplay, 'directions_changed', function(){
