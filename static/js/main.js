@@ -88,8 +88,11 @@ Mototrip.Create = {
                 duration += leg.duration.value;
             }
 
-            distance = (distance / 1000).toPrecision(2);
+            distance = distance / 1000;
             duration = priv.secondsToTime(duration);
+
+            $(".distance_label").html(String(distance).split(".")[0]);
+            $(".hour_label").html(duration);
 
             $.ajax({
                 url: window.location.pathname,
@@ -123,13 +126,6 @@ Mototrip.Create = {
                     console.log(data);
                 }
             });
-        }
-
-        priv.filterFloat = function (value) {
-            if(/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/
-              .test(value))
-              return Number(value);
-          return NaN;
         }
 
         priv.setPoint = function(origin, destination, initial, waypoints, current_point){
