@@ -18,7 +18,7 @@
 						<li><h3><a href='{% url "group_details" agroup.group.id %}'>Grupo {{ agroup.group.name }}</a></h3>
 						<ul>
 						{% for trip in agroup.group.trip_set.all %}
-							<li><a href="">{{ trip.name }}</a></li>
+							<li><a href="{% url 'trip:show' trip.id %}">{{ trip.name }}</a></li>
 						{% endfor %}
 						</ul></li>
 					{% endif %}
@@ -36,7 +36,7 @@
 				{% if publicos %}
 				<ul>
 					{% for trip in publicos %}
-							<li><a href="#">{{ trip.name }}</a></li>
+						<li><a href="{% url 'trip:show' trip.id %}">{{ trip.name }}</a></li>
 					{% endfor %}
 				</ul>
 				{% else %}

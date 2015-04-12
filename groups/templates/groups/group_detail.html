@@ -1,35 +1,83 @@
 {% extends 'base/master.html' %}
 
+{% block title %}{{ object.name }}{% endblock %}
+
+{%block description %}Grupo {{ object.name }} - Grupo criado por {{ object.owner.userprofile.name }}{% endblock %}
+
 
 {% block content %}
 <div class='row'>
 	<div class='col-md-8 col-md-offset-2'>
 	<h1> {{ object.name }} </h1>
 
-	<p>Grupo {% if object.is_public %}Público{% else %}Privado{% endif %}</p>
+	<small>Grupo {% if object.is_public %}Público{% else %}Privado{% endif %}</small>
+	<p>Grupo criado por {{ object.owner.userprofile.name }}</p>
 
-	<h3>Membros:</h3>
-		{% if object.group_access_set.all %}
+	<div class="g-plusone" data-annotation="inline" data-width="120"></div><br>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-lang="pt" data-size="medium" data-hashtags="ufsm">Tweetar</a><br/>
+	<div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+	<div id="fb-root"></div>
+
+
+
+	<div class="col-md-6">
+		<h2>Membros:</h2>
+			{% if object.group_access_set.all %}
+				<ul>
+					{% for each in object.group_access_set.all %}
+						<li><a>{{ each.user.userprofile.name }}</a></li>	
+					{% endfor %}
+				</ul>
+			{% else %}
+				Nenhum membro. <br><br>
+				Quer participar do grupo? <br>
+			{% endif %}
+		
+		{% if not is_member %}
+			<a class='btn btn-primary' href='{% url "join_group" object.id %}'>Participar do Grupo</a>
+		{% else %}
+			<a class='btn btn-danger' href='{% url "leave_group" object.id %}'>Abandonar Grupo</a>
+		{% endif %}
+	</div>
+
+	<div class="col-md-6">
+		<h2>Roteiros do Grupo</h2>
+		{% if object.trip_set.all %}
 			<ul>
-				{% for each in object.group_access_set.all %}
-					<li> {{ each.user.userprofile.name }} </li>	
+				{% for each in object.trip_set.all %}
+					<li><a href='{% url "trip:create-route" each.id %}'>{{ each.name }}</a></li>
 				{% endfor %}
 			</ul>
 		{% else %}
-			Nenhum membro. <br><br>
-			Quer participar do grupo? <br>
+			<p>Esse grupo ainda não criou nenhum roteiro.
+				{% if not is_member %} Torne-se membro do grupo para criar um roteiro. {% endif %}
+			</p>
 		{% endif %}
-	
-	{% if not is_member %}
-		<a class='btn btn-primary' href='{% url "join_group" object.id %}'>Participar do Grupo</a>
-	{% else %}
-		<a class='btn btn-warning' href='{% url "leave_group" object.id %}'>Abandonar Grupo</a>
-	{% endif %}
 
-	{% if is_member %}
-		<a class='btn btn-large btn-primary' href='{% url "trip:create" %}?group={{ object.id }}'>Criar Trip</a>
-	{% endif %}
+		{% if is_member %}
+			<a class='btn btn-large btn-primary' href='{% url "trip:create" %}?group={{ object.id }}'>Criar Novo Roteiro</a>
+		{% endif %}
+	</div>
 
 	</div>
 </div>
+{% endblock %}
+
+{% block extrajs %}
+
+	<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=268350933326804";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<script type="text/javascript" async defer src="https://apis.google.com/js/platform.js?publisherid=105592117570270546246"></script>
+
+
 {% endblock %}

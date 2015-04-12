@@ -5,10 +5,10 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="{% block description %}Esqueleto do Projeto{% endblock %}">
-	<meta name="author" content="{% block author %}Ikke/14{% endblock %}">
+	<meta name="description" content="{% block description %}MotoTRIP - Share new Roads{% endblock %}">
+	<meta name="author" content="{% block author %}MotoTrip - #hackinpoa{% endblock %}">
 
-	<title>{% block title %}Início{% endblock %} - Projeto</title>
+	<title>{% block title %}Login{% endblock %} - MotoTrip</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
@@ -26,7 +26,7 @@
   <body>
   	<div class="container login">
   		<div class="box-login">
-  			<h1><img src="{% static 'img/mototrip_brand.png' %}"></h1>
+  			<h1><a href='{% url "index" %}'><img src="{% static 'img/mototrip_brand.png' %}"></a></h1>
 
   			{% if form.errors %}
   			<p>Seu usuário ou senha não combinam. Tente novamente</p>
@@ -43,7 +43,7 @@
             <li><a title="Google" class="btn btn-lg btn-social google" href="/accounts/google/login/?process=login"><i class="fa fa-google-plus"></i> Google</a></li>
           </ul>
 
-          <h2 class="form-login-heading text-center">CONTA ROADTRIP</h2>
+          <h2 class="form-login-heading text-center">CONTA MOTOTRIP</h2>
   				<div class="form-group">
   					<label for="id_username" class="sr-only">Usuário</label>
   					<input type="text" id="id_username" name="username" class="form-control input-lg" placeholder="Usuário" required autofocus>
@@ -57,6 +57,7 @@
   				{% include "socialaccount/snippets/login_extra.html" %}
   				<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
   				<input type="hidden" name="next" value="{{ next }}" />
+          <a href="signup">Cadastre-se</a>
   			</form>
   		</div>
   	</div>

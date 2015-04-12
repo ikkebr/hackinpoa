@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{% block description %}Esqueleto do Projeto{% endblock %}">
-  <meta name="author" content="{% block author %}Ikke/14{% endblock %}">
+  <meta name="description" content="{% block description %}MotoTrip - Share New Roads{% endblock %}">
+  <meta name="author" content="{% block author %}MotoTrip - #hackinpoa{% endblock %}">
 
-  <title>{% block title %}Início{% endblock %} - Projeto</title>
+  <title>{% block title %}Início{% endblock %} - MotoTrip</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
@@ -37,26 +37,29 @@
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav pull-right">
+              {% if user.is_authenticated %}
               <li><a href="{% url 'profile' %}">Perfil</a></li>
-              <li><a href="{% url 'index' %}">Roteiros</a></li>
+              <li><a href="{% url 'trip_list' %}">Roteiros</a></li>
               <li><a href="{% url 'groups' %}">Grupos</a></li>
               <li><a href="{% url 'django.contrib.auth.views.logout_then_login' %}">Logout</a></li>
+              {% else %}
+              <li><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
       <div class="container-fluid">
-        
-          {% if messages %}
-          <div class='row'>
-            {% for message in messages %}
-            <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-            {% endfor %}
-          </div>
-          {% endif %}
+        {% if messages %}
+        <div class='row'>
+          {% for message in messages %}
+          <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
 
-          {% block content %}
-          {% endblock %}
+        {% block content %}
+        {% endblock %}
       </div><!-- /.container -->
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -65,4 +68,4 @@
 
       {% block extrajs %}{% endblock %}
     </body>
-  </html>
+    </html>

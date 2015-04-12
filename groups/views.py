@@ -105,6 +105,7 @@ def join_group(request, pk):
 
     return redirect(group)
 
+@login_required
 def leave_group(request, pk):
     group = get_object_or_404(Group, id=pk)
     access, created = Group_Access.objects.get_or_create(group=group, user=request.user)
@@ -139,3 +140,15 @@ def add_group_members(request, pk):
         return redirect('group_details', pk)
 
     return render(request, 'groups/group_add_member.html', {'form': form, 'pk': pk})
+
+
+@login_required
+def trip_list(request):
+    grupos = Group_Access.objects.filter(user=request.user)
+    from trip.models import Trip
+
+    publicos = Trip.objects.filter(is_public=True)
+
+    conta = sum([len(x.group.trip_set.all()) for x in grupos])
+
+    return render(request, 'groups/trip_list.html', { 'grupos': grupos, 'publicos': publicos, 'conta': conta  })

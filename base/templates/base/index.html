@@ -7,10 +7,10 @@
 	  <div class="col-md-offset-1 col-md-4">
 	    <h1>PLANEJE SUA VIAGEM COM OS AMIGOS</h1>
 	  	<p class="lead">Crie rotas, organize grupos e compartilhe sua experiência na estrada</p>
-	  	<a href="#" class="btn btn-default">Comece uma viajem</a>
+	  	<a href="{% url 'login' %}?next={% url 'trip_list' %}" class="btn btn-default">Comece uma viajem</a>
 	  </div>
 	</div>
-	<div class="como-funciona">
+	<div id="como-funciona" class="como-funciona">
 	  <div class="row">
 	    <div class="col-md-12 text-center">
 	      <h1><i class="fa fa-road"></i></h1>
