@@ -3,15 +3,14 @@
 
 {% block content %}
 <div class='row'>
-	<div class='col-md-8 col-md-offset-2'>
+	<div class='box-form'>
 	<h1>Criar Grupo</h1>
 
-	<form method='post' action='{% url "group_create" %}'>
-		<table class='table'>
-			{{ form }}
-		</table>
-	
+	<form method='post' class='form-horizontal' action='{% url "group_create" %}'>
+		
+		{% include "base/snippet.html" with form=form %}	
 		<button class='btn btn-primary'>Cadastrar</button>
+		
 		{% csrf_token %}
 	</form>
 	</div>

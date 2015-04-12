@@ -5,13 +5,11 @@
 	<div class="box-form">
 		<form class='form-horizontal' method="post" action="{% url 'edit_profile' %}">
 			<h2>Editar Perfil</h2>
-			<table class='table table-striped'>
-			{{ form.as_p }}
 
-			</table>
+			{% include "base/snippet.html" with form=form %}
 
 			{% csrf_token %}
-			<button class='btn btn-primary'>Salvar Perfil</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
 		</form>
 	</div>
 </div>
