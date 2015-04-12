@@ -75,7 +75,7 @@ def create_waypoint(request):
     return HttpResponse("error", content_type="application/json")
 
 
-class ShowRoute(LoginRequiredMixin, DetailView):
+class ShowRoute(DetailView):
 
     model = Trip
 
