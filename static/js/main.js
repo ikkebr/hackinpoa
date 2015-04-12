@@ -1,103 +1,133 @@
-$(function(){
+if (window.Mototrip === undefined) window.Mototrip = {};
 
-    var points = [];
-    var map;
-    var map_tag = "map_canvas";
-    var body = $("body");
-    var directionService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer({
-        draggable: true
-    });
+Mototrip.Create = {
 
-    function setCurrentLocation(map) {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(location){
-                map.setCenter(new google.maps.LatLng(location.coords.latitude,
-                    location.coords.longitude));
-                // new google.maps.Marker({
-                //     position: map.getCenter(),
-                //     map: map,
-                //     title: 'Click to zoom'
-                // });
+    create: function(){
+        var priv = {};
+        var pub = {};
+
+        priv.points = [];
+        priv.map;
+        priv.map_tag = "map_canvas";
+        priv.body = $("body");
+        priv.directionService = new google.maps.DirectionsService();
+        priv.directionsDisplay = new google.maps.DirectionsRenderer({
+            draggable: true
+        });
+
+        priv.setCurrentLocation = function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(location){
+                    priv.map.setCenter(new google.maps.LatLng(location.coords.latitude,
+                        location.coords.longitude));
+                    // new google.maps.Marker({
+                    //     position: map.getCenter(),
+                    //     map: map,
+                    //     title: 'Click to zoom'
+                    // });
+                });
+            }
+        }
+
+        priv.initializeMap = function() {
+            var mapOptions = {
+                center: new google.maps.LatLng(-34.397, 150.644),
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById(priv.map_tag),
+                mapOptions);
+
+            return map;
+        }
+
+        priv.setInitialRoute = function(origin, destination){
+            priv.body.attr("data-origin", origin);
+            priv.body.attr("data-destination", destination);
+        }
+
+        priv.addPointOnTable = function(data, current_point){
+            var legs = data.routes[0].legs;
+            var latitude = current_point.k.toPrecision(5);
+            var longitude = current_point.D.toPrecision(5);
+
+            for(i=0; i<=legs.length - 1; i++){
+                var leg = legs[i];
+                var start_latitude = leg.start_location.k.toPrecision(5);
+                var start_longitude = legs.start_location.D.toPrecision(5);
+
+            }
+        }
+
+        priv.setPoint = function(origin, destination, initial, waypoints, current_point){
+            priv.directionService.route({
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.DRIVING,
+                waypoints: waypoints
+            }, function(data, status){
+                if(!initial){
+                    priv.addPointOnTable(data, current_point);
+                }
+                priv.directionsDisplay.setMap(priv.map);
+                priv.directionsDisplay.setDirections(data);
             });
         }
-    }
 
-    function initializeMap() {
-        var mapOptions = {
-            center: new google.maps.LatLng(-34.397, 150.644),
-            zoom: 13,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById(map_tag),
-            mapOptions);
+        priv.getInitialRoute = function(){
+            var ret = [];
 
-        setCurrentLocation(map);
-        return map;
-    }
+            ret.push(priv.body.attr("data-origin"));
+            ret.push(priv.body.attr("data-destination"));
 
-    function setInitialRoute(origin, destination){
-        body.attr("data-origin", origin);
-        body.attr("data-destination", destination);
-    }
+            return ret;
+        }
 
-    function getInitialRoute(){
-        var ret = [];
+        priv.addWayPoint = function(current_point){
+            var location = priv.getInitialRoute();
+            var origin = location[0];
+            var destination = location[1];
+            var waypoints = priv.points;
 
-        ret.push(body.attr("data-origin"));
-        ret.push(body.attr("data-destination"));
+            priv.setPoint(origin, destination, false, waypoints, current_point)
+        }
 
-        return ret;
-    }
+        priv.addInitialRoute = function(routePoints){
+            var origin = routePoints[0].value;
+            var destination = routePoints[1].value
 
-    function addWayPoint(location){
-        var routePoints = getInitialRoute();
+            priv.setInitialRoute(origin, destination, true);
+            priv.setPoint(origin, destination)
+        }
 
-        directionService.route({
-            origin: routePoints[0],
-            destination: routePoints[1],
-            travelMode: google.maps.TravelMode.DRIVING,
-            waypoints: points
-        }, function(data, status){
-            directionsDisplay.setMap(map);
-            directionsDisplay.setDirections(data);
-            setInitialRoute(routePoints[0].value, routePoints[1].value);
-        });
-    }
+        pub.init = function(){
+            priv.map = priv.initializeMap();
+            priv.setCurrentLocation();
 
-    function addInitialRoute(routePoints){
-        var response;
+            $("#init-route").submit(function(event){
+                event.preventDefault();
+                var form = $(this);
+                var data = form.serializeArray();
 
-        directionService.route({
-            origin: routePoints[0].value,
-            destination: routePoints[1].value,
-            travelMode: google.maps.TravelMode.DRIVING
-        }, function(data, status){
-            directionsDisplay.setMap(map);
-            directionsDisplay.setDirections(data);
-            setInitialRoute(routePoints[0].value, routePoints[1].value);
-        });
-    }
+                priv.addInitialRoute(data, map);
+            });
 
-    map = initializeMap();
+            google.maps.event.addListener(priv.map, 'click', function(data){
+                var current_point = {location: new google.maps.LatLng(
+                    data.latLng.k, data.latLng.D
+                )}
+                priv.points.push(current_point);
+                priv.addWayPoint(current_point);
+            });
 
-    $("#init-route").submit(function(event){
-        event.preventDefault();
-        var form = $(this);
-        var data = form.serializeArray();
+            google.maps.event.addListener(priv.directionsDisplay, 'directions_changed', function(){
 
-        addInitialRoute(data, map);
-    });
+            });
+        }
 
-    google.maps.event.addListener(map, 'click', function(data){
-        points.push({location: new google.maps.LatLng(
-            data.latLng.k, data.latLng.D
-        )});
-        addWayPoint();
-    });
+        return pub;
+    }()
 
-    google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
-        debugger;
-    });
+}
 
-});
+Mototrip.Create.create.init()

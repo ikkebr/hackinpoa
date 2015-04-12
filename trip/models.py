@@ -16,7 +16,7 @@ DIFFICULT = (
 TRACK_TYPE = (
     ("group", "Terra"),
     ("asphalt", "Asfalto"),
-    ("pave", "Pavimento")
+    ("pave", "<Pavimento></Pavimento>")
 )
 
 class Trip(models.Model):
@@ -44,6 +44,8 @@ class Route(models.Model):
 
 
 class WayPoint(models.Model):
+    description = models.CharField(u"Descrição", max_length=255, null=True,
+        blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     address = models.CharField(u"Endereço", null=True, blank=True,
