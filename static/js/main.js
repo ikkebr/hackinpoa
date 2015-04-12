@@ -208,6 +208,8 @@ Mototrip.Create = {
                 priv.addInitialRoute(origin, destination);
             });
 
+            $("#init-route").submit();
+
             // google.maps.event.addListener(priv.directionsDisplay, 'directions_changed', function(){
 
             // });

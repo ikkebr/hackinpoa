@@ -8,7 +8,7 @@
 <div class="row">
     <div class='col-md-8 col-md-offset-2'>
     <h1> {{ trip.name }} </h1>
-    <form id="init-route" class='form-horizontal' method="post" action=".">
+    <form id="init-route" class='form-horizontal' method="post" action="."  style="display: none;">
         {% csrf_token %}
         <input type="hidden" id="trip" value="{{ trip.id }}">
         <input type="hidden" id="route">
@@ -80,7 +80,7 @@
         <table class='table table-bordered foo' id="points">
             <tbody></tbody>
         </table>
-        <a href="{% url 'trip:show' trip.id %}" class="btn btn-primary">Avançar</a>
+        <a href="{% url 'trip:show' trip.id %}" class="btn btn-primary">Salvar</a>
     </div>
 </div>
 {% endblock %}

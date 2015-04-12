@@ -1,5 +1,6 @@
 {% extends 'base/master.html' %}
 
+{% load widget_tweaks %}
 
 {% block content %}
 <div class='row'>
@@ -7,10 +8,26 @@
 	<h1>Criar Grupo</h1>
 
 	<form method='post' class='form-horizontal' action='{% url "group_create" %}'>
-		
-		{% include "base/snippet.html" with form=form %}	
+		<div class="form-group form-group-lg">
+			<label class="col-md-4 control-label" for="id_name">{{ form.fields.name.label }}</label>
+			<div class="col-md-8">
+				<input type="text" name="name" id="id_name" class="form-control">
+			</div>
+		</div>
+		 <div class="form-group form-group-lg">
+				<label class="col-md-4 control-label">
+					É publico
+				</label>
+				<div class="col-md-8">
+					<div class="checkbox text-left">
+						<label>
+							<input type="checkbox" name="is_public" id="id_is_public" checked>
+						</label>
+					</div>
+				</div>
+			</div>
 		<button class='btn btn-primary'>Cadastrar</button>
-		
+
 		{% csrf_token %}
 	</form>
 	</div>
