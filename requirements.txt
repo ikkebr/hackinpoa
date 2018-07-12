@@ -1,5 +1,5 @@
 Django==1.7.4
-Pillow==2.8.1
+Pillow==3.2.2
 PyYAML==3.11
 argparse==1.2.1
 autopep8==1.1.1
